@@ -1,44 +1,86 @@
-<div class="w-full h-screen flex">
-  <div class="w-64 flex-none p-4">
+<div class="w-full h-screen flex bg-slate-50">
+  <div
+    class="w-64 h-screen flex-none p-4 border-r border-slate-300 [&>ul]:mb-6 relative"
+  >
     <h1 class="mb-12 font-fira-sans font-semibold text-3xl text-orange-600">
       MUZIK
     </h1>
-    <ul>
-      <li><span class="material-symbols-rounded"> home </span>Home</li>
-      <li><span class="material-symbols-rounded"> explore </span>Explore</li>
-      <li><span class="material-symbols-rounded"> mic </span>Podcast</li>
-    </ul>
-    <ul>
-      <h3>My Library</h3>
-      <li>
-        <span class="material-symbols-rounded"> history </span>Recently Played
+    <ul
+      class="*:flex *:items-center *:py-2 *:ml-4 *:font-signika *:cursor-pointer *:text-slate-700 *:transition [&>li>span]:transition [&>li>span]:mr-2 [&>li>span]:text-slate-700"
+    >
+      <li class="hover:text-orange-600 group">
+        <span class="material-symbols-rounded group-hover:text-orange-600">
+          home </span
+        >Home
       </li>
-      <li>
-        <span class="material-symbols-rounded"> star </span>Favorite Songs
+      <li class="hover:text-orange-600 group">
+        <span class="material-symbols-rounded group-hover:text-orange-600">
+          explore </span
+        >Explore
       </li>
-    </ul>
-    <ul>
-      <h3>Playlists</h3>
-      <li>
-        <span class="material-symbols-rounded"> playlist_play </span>Hip Hop
-      </li>
-      <li>
-        <span class="material-symbols-rounded"> playlist_play </span>Classic
-      </li>
-      <li>
-        <span class="material-symbols-rounded"> playlist_play </span>study
-      </li>
-      <li>
-        <span class="material-symbols-rounded"> playlist_play </span>Chill
+      <li class="hover:text-orange-600 group">
+        <span class="material-symbols-rounded group-hover:text-orange-600">
+          mic </span
+        >Podcast
       </li>
     </ul>
-    <div>
-      <div>
-        <img src="" alt="" />
+    <h2 class="mb-2 text-slate-600">My Library</h2>
+    <ul
+      class="*:flex *:items-center *:py-2 *:ml-4 *:font-signika *:cursor-pointer *:text-slate-700 *:transition [&>li>span]:transition [&>li>span]:mr-2 [&>li>span]:text-slate-700"
+    >
+      <li class="hover:text-orange-600 group">
+        <span class="material-symbols-rounded group-hover:text-orange-600">
+          history </span
+        >Recently Played
+      </li>
+      <li class="hover:text-orange-600 group">
+        <span class="material-symbols-rounded group-hover:text-orange-600">
+          star </span
+        >Favorite Songs
+      </li>
+    </ul>
+    <h2 class="mb-2 text-slate-600">Playlists</h2>
+    <ul
+      class="*:flex *:items-center *:py-2 *:ml-4 *:font-signika *:cursor-pointer *:text-slate-700 *:transition [&>li>span]:transition [&>li>span]:mr-2 [&>li>span]:text-slate-700"
+    >
+      <li class="hover:text-orange-600 group">
+        <span class="material-symbols-rounded group-hover:text-orange-600">
+          playlist_play </span
+        >Hip Hop
+      </li>
+      <li class="hover:text-orange-600 group">
+        <span class="material-symbols-rounded group-hover:text-orange-600">
+          playlist_play </span
+        >Classic
+      </li>
+      <li class="hover:text-orange-600 group">
+        <span class="material-symbols-rounded group-hover:text-orange-600">
+          playlist_play </span
+        >Study
+      </li>
+      <li class="hover:text-orange-600 group">
+        <span class="material-symbols-rounded group-hover:text-orange-600">
+          playlist_play </span
+        >Chill
+      </li>
+    </ul>
+    <div
+      class="w-5/6 flex items-center absolute bottom-0 rounded-full p-2 mb-2 cursor-pointer bg-slate-100 group"
+    >
+      <div
+        class="w-8 h-8 flex justify-center items-center rounded-full overflow-hidden mr-2"
+      >
+        <!-- <img src="" alt="" /> -->
         <span class="material-symbols-rounded"> person </span>
       </div>
-      <p>Amir Allahdadian</p>
-      <span class="material-symbols-rounded"> chevron_right </span>
+      <p class="font-signika group-hover:text-orange-600 transition">
+        Amir Allahdadian
+      </p>
+      <span
+        class="material-symbols-rounded absolute right-0 mr-2 group-hover:text-orange-600 transition"
+      >
+        chevron_right
+      </span>
     </div>
   </div>
   <div class="flex-1"></div>
