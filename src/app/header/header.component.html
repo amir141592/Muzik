@@ -1,0 +1,31 @@
+<div class="flex justify-between items-center">
+  <div
+    class="group w-2/3 h-10 flex items-center rounded-full py-2 px-4 bg-slate-100"
+  >
+    <span class="material-symbols-rounded text-slate-400 cursor-pointer"
+      >search</span
+    >
+    <input
+      type="search"
+      name="search"
+      id="search"
+      class="bg-transparent mx-1 w-full"
+      placeholder="search"
+      [formControl]="search"
+    />
+    <span
+      class="material-symbols-rounded invisible text-slate-400 cursor-pointer group-hover:visible"
+      >ink_eraser</span
+    >
+  </div>
+
+  <div
+    class="group w-10 h-10 flex p-2 justify-center items-center border rounded-full border-slate-300 cursor-pointer"
+  >
+    <span
+      class="material-symbols-rounded text-slate-600 group-hover:text-orange-600 transition"
+    >
+      notifications
+    </span>
+  </div>
+</div>

@@ -22,6 +22,7 @@
     "@angular/platform-server": "^17.0.0",
     "@angular/router": "^17.0.0",
     "@angular/ssr": "^17.0.8",
+    "@kuro-samurai/ngx-samurai-button": "^3.1.2",
     "express": "^4.18.2",
     "material-symbols": "^0.14.3",
     "rxjs": "~7.8.0",
