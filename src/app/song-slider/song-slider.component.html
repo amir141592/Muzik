@@ -1,7 +1,7 @@
 <div
   class="w-full bg-transparent mb-4 overflow-hidden overscroll-contain hover:overflow-x-auto"
 >
-  <div class="w-full flex justify-between items-center">
+  <div class="w-full flex justify-between items-center mb-2">
     <h2 class="font-fira-sans">Recommended For You</h2>
     <button
       samuraiButton
@@ -13,5 +13,8 @@
     >
       See More
     </button>
+  </div>
+  <div class="flex items-center gap-10 w-fit">
+    @for (song of songs; track 'id') { <muzik-song [song]="song"></muzik-song> }
   </div>
 </div>

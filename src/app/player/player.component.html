@@ -1,1 +1,44 @@
-<p>muzik-player works!</p>
+<div class="w-full bg-slate-50 relative flex justify-between p-4 pt-6">
+  <input
+    type="range"
+    name="seeker"
+    id="seeker"
+    class="absolute top-0 w-full border-none cursor-col-resize"
+    style="transform: translate(-16px, -4px); accent-color: rgb(234 88 12)"
+    value="180"
+    max="207"
+  />
+  <div class="flex">
+    <div class="w-16 h-16 rounded-lg overflow-hidden mr-2">
+      @if (playingSong.image) {
+      <img
+        class="w-full h-auto"
+        [src]="playingSong.image"
+        [alt]="playingSong.title"
+      />
+      } @else { <span class="material-symbols-rounded"> genres </span> }
+    </div>
+    <div class="flex flex-col justify-center">
+      <h1 class="font-signika font-medium text-slate-800">
+        {{ playingSong.title }}
+      </h1>
+      <h2 class="font-signika text-slate-500 hover:underline cursor-pointer">
+        {{ playingSong.artist }}
+      </h2>
+    </div>
+  </div>
+  <div
+    class="flex justify-between items-center gap-4 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+  >
+    <!-- TODO replace icons with samurai button -->
+    <span class="material-symbols-rounded cursor-pointer">shuffle</span>
+    <span class="material-symbols-rounded cursor-pointer">skip_previous</span>
+    <span
+      class="material-symbols-rounded cursor-pointer rounded-full bg-orange-600 text-white p-1"
+      >play_arrow</span
+    >
+    <span class="material-symbols-rounded cursor-pointer">skip_next</span>
+    <span class="material-symbols-rounded cursor-pointer">repeat</span>
+  </div>
+  <div class=""></div>
+</div>
