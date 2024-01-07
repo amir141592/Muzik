@@ -3,7 +3,7 @@
     type="range"
     name="seeker"
     id="seeker"
-    class="absolute top-0 w-full border-none cursor-col-resize"
+    class="absolute top-0 w-full cursor-col-resize"
     style="transform: translate(-16px, -4px); accent-color: rgb(234 88 12)"
     value="180"
     max="207"
@@ -31,14 +31,59 @@
     class="flex justify-between items-center gap-4 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
   >
     <!-- TODO replace icons with samurai button -->
-    <span class="material-symbols-rounded cursor-pointer">shuffle</span>
-    <span class="material-symbols-rounded cursor-pointer">skip_previous</span>
-    <span
-      class="material-symbols-rounded cursor-pointer rounded-full bg-orange-600 text-white p-1"
-      >play_arrow</span
-    >
-    <span class="material-symbols-rounded cursor-pointer">skip_next</span>
-    <span class="material-symbols-rounded cursor-pointer">repeat</span>
+    <button
+      samuraiButton
+      variation="CONTENT_ONLY"
+      content="ICON"
+      icon="shuffle"
+      iconStyle="round"
+      color="rgb(234 88 12)"
+    ></button>
+    <button
+      samuraiButton
+      variation="CONTENT_ONLY"
+      content="ICON"
+      icon="skip_previous"
+      iconStyle="round"
+      color="rgb(234 88 12)"
+    ></button>
+    <button
+      samuraiButton
+      variation="FILLED"
+      content="ICON"
+      icon="play_arrow"
+      iconStyle="round"
+      backgroundColor="rgb(234 88 12)"
+      color="#ffffff"
+      borderRadius="ROUND"
+    ></button>
+    <button
+      samuraiButton
+      variation="CONTENT_ONLY"
+      content="ICON"
+      icon="skip_next"
+      iconStyle="round"
+      color="rgb(234 88 12)"
+    ></button>
+    <button
+      samuraiButton
+      variation="CONTENT_ONLY"
+      content="ICON"
+      icon="repeat"
+      iconStyle="round"
+      color="rgb(234 88 12)"
+    ></button>
   </div>
-  <div class=""></div>
+  <div class="flex items-center">
+    <span class="material-symbols-rounded mr-1">volume_up</span>
+    <input
+      type="range"
+      name="volume"
+      id="volume"
+      class="w-20 h-1 cursor-col-resize"
+      style="accent-color: rgb(234 88 12)"
+      value="100"
+      max="100"
+    />
+  </div>
 </div>

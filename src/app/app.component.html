@@ -95,5 +95,111 @@
       <muzik-player ngSkipHydration></muzik-player>
     </div>
   </div>
-  <div class="w-96 flex-none h-screen p-4 border-l border-slate-300"></div>
+  <div
+    class="w-96 flex-none flex flex-col justify-between h-screen p-4 border-l border-slate-300"
+  >
+    <div class="w-full mb-8">
+      <div class="flex justify-between items-center w-full mb-6">
+        <div class="flex items-center">
+          <span class="material-symbols-rounded mr-1 text-slate-500">star</span>
+          <h1 class="text-slate-500 font-fira-sans">Favorite Songs</h1>
+        </div>
+        <button
+          samuraiButton
+          variation="CONTENT_ONLY"
+          content="TEXT"
+          color="rgb(234 88 12)"
+          style="font-size: 16px"
+        >
+          See All
+        </button>
+      </div>
+      <ul class="w-full">
+        @for (song of favoriteSongs; track 'id') {
+        <li class="flex justify-between items-center mb-4 w-full">
+          <div class="flex">
+            <div class="w-16 h-16 rounded-lg overflow-hidden mr-2">
+              @if (song.image) {
+              <img
+                class="w-full h-auto"
+                [src]="song.image"
+                [alt]="song.title"
+              />
+              } @else { <span class="material-symbols-rounded"> genres </span> }
+            </div>
+            <div class="flex flex-col justify-center">
+              <h1 class="font-signika font-medium text-slate-800">
+                {{ song.title }}
+              </h1>
+              <h2
+                class="font-signika text-slate-500 hover:underline cursor-pointer"
+              >
+                {{ song.artist }}
+              </h2>
+            </div>
+          </div>
+          <button
+            samuraiButton
+            variation="CONTENT_ONLY"
+            content="ICON"
+            icon="play_arrow"
+            iconStyle="round"
+            color="rgb(234 88 12)"
+          ></button>
+        </li>
+        }
+      </ul>
+    </div>
+    <div class="w-full mb-8">
+      <div class="flex justify-between items-center w-full mb-6">
+        <div class="flex items-center">
+          <span class="material-symbols-rounded mr-1 text-slate-500">
+            group
+          </span>
+          <h1 class="text-slate-500 font-fira-sans">Favorite Artists</h1>
+        </div>
+        <button
+          samuraiButton
+          variation="CONTENT_ONLY"
+          content="TEXT"
+          color="rgb(234 88 12)"
+          style="font-size: 16px"
+        >
+          See All
+        </button>
+      </div>
+      <ul class="w-full">
+        @for (artist of favoriteArtists; track 'id') {
+        <li class="flex justify-between items-center mb-4 w-full">
+          <div class="flex">
+            <div class="w-16 h-16 rounded-lg overflow-hidden mr-2">
+              @if (artist.image) {
+              <img
+                class="w-full h-auto"
+                [src]="artist.image"
+                [alt]="artist.artisticName"
+              />
+              } @else { <span class="material-symbols-rounded"> person </span> }
+            </div>
+            <div class="h-full flex items-center">
+              <h1 class="font-signika font-medium text-slate-800 capitalize">
+                {{ artist.artisticName }}
+              </h1>
+            </div>
+          </div>
+          <button
+            samuraiButton
+            variation="CONTENT_ONLY"
+            content="ICON"
+            icon="play_arrow"
+            iconStyle="round"
+            color="rgb(234 88 12)"
+          ></button>
+        </li>
+        }
+      </ul>
+    </div>
+    <!-- TODO add premium membership card -->
+    <div></div>
+  </div>
 </div>
