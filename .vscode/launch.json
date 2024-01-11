@@ -3,6 +3,16 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "bun",
+      "internalConsoleOptions": "neverOpen",
+      "request": "launch",
+      "name": "Debug File",
+      "program": "server/index.ts",
+      "cwd": "${workspaceFolder}",
+      "stopOnEntry": false,
+      "watchMode": true
+    },
+    {
       "name": "ng serve",
       "type": "chrome",
       "request": "launch",
