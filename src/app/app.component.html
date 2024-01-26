@@ -9,8 +9,9 @@
       class="*:flex *:items-center *:py-2 *:ml-4 *:font-signika *:cursor-pointer *:text-slate-700 *:transition [&>li>span]:transition [&>li>span]:mr-2 [&>li>span]:text-slate-700"
     >
       <li class="hover:text-orange-600 group">
-        <fa-icon [icon]="faIcons.home"></fa-icon>
-        Home
+        <span class="material-symbols-rounded group-hover:text-orange-600">
+          home </span
+        >Home
       </li>
       <li class="hover:text-orange-600 group">
         <span class="material-symbols-rounded group-hover:text-orange-600">
@@ -103,7 +104,13 @@
           <span class="material-symbols-rounded mr-1 text-slate-500">star</span>
           <h1 class="text-slate-500 font-fira-sans">Favorite Songs</h1>
         </div>
-        <button class="text-orange-600 hover:underline font-medium">
+        <button
+          samuraiButton
+          variation="CONTENT_ONLY"
+          content="TEXT"
+          color="rgb(234 88 12)"
+          style="font-size: 16px"
+        >
           See All
         </button>
       </div>
@@ -131,12 +138,14 @@
               </h2>
             </div>
           </div>
-          <button>
-            <span
-              class="material-symbols-rounded icon-filled text-orange-600 transition border border-transparent rounded-full p-1 hover:border-orange-600"
-              >play_arrow</span
-            >
-          </button>
+          <button
+            samuraiButton
+            variation="CONTENT_ONLY"
+            content="ICON"
+            icon="play_arrow"
+            iconStyle="round"
+            color="rgb(234 88 12)"
+          ></button>
         </li>
         }
       </ul>
@@ -149,7 +158,13 @@
           </span>
           <h1 class="text-slate-500 font-fira-sans">Favorite Artists</h1>
         </div>
-        <button class="text-orange-600 hover:underline font-medium">
+        <button
+          samuraiButton
+          variation="CONTENT_ONLY"
+          content="TEXT"
+          color="rgb(234 88 12)"
+          style="font-size: 16px"
+        >
           See All
         </button>
       </div>
@@ -172,12 +187,14 @@
               </h1>
             </div>
           </div>
-          <button>
-            <span
-              class="material-symbols-rounded icon-filled text-orange-600 transition border border-transparent rounded-full p-1 hover:border-orange-600"
-              >play_arrow</span
-            >
-          </button>
+          <button
+            samuraiButton
+            variation="CONTENT_ONLY"
+            content="ICON"
+            icon="play_arrow"
+            iconStyle="round"
+            color="rgb(234 88 12)"
+          ></button>
         </li>
         }
       </ul>

@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
+import { SamuraiButtonDirective } from '@kuro-samurai/ngx-samurai-button';
 import { Song } from '../interfaces/song.interface';
 
 @Component({
   selector: 'muzik-player',
   standalone: true,
-  imports: [],
+  imports: [SamuraiButtonDirective],
   templateUrl: './player.component.html',
   styleUrl: './player.component.scss',
 })

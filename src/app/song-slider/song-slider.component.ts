@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { SamuraiButtonDirective } from '@kuro-samurai/ngx-samurai-button';
 import { SongComponent } from '../song/song.component';
 import { Song } from '../interfaces/song.interface';
 
 @Component({
   selector: 'muzik-song-slider',
   standalone: true,
-  imports: [SongComponent],
+  imports: [SamuraiButtonDirective, SongComponent],
   templateUrl: './song-slider.component.html',
   styleUrl: './song-slider.component.scss',
 })

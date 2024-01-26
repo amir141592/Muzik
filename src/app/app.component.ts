@@ -5,10 +5,9 @@ import { HeaderComponent } from './header/header.component';
 import { EventSliderComponent } from './event-slider/event-slider.component';
 import { SongSliderComponent } from './song-slider/song-slider.component';
 import { PlayerComponent } from './player/player.component';
+import { SamuraiButtonDirective } from '@kuro-samurai/ngx-samurai-button';
 import { Song } from './interfaces/song.interface';
 import { Artist } from './interfaces/artist.interface';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'muzik-root',
@@ -20,7 +19,7 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
     EventSliderComponent,
     SongSliderComponent,
     PlayerComponent,
-    FontAwesomeModule,
+    SamuraiButtonDirective,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -28,11 +27,7 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
 export class AppComponent {
   title = 'muzik';
 
-  public faIcons = {
-    home: faHome,
-  };
-
-  public favoriteSongs: Song[] = [
+  favoriteSongs: Song[] = [
     {
       id: '1',
       title: 'Khab Nabashim',
@@ -59,7 +54,7 @@ export class AppComponent {
     },
   ];
 
-  public favoriteArtists: Artist[] = [
+  favoriteArtists: Artist[] = [
     {
       id: '1',
       firstName: 'mohammad reza',
