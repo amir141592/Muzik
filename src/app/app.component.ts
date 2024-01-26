@@ -5,7 +5,6 @@ import { HeaderComponent } from './header/header.component';
 import { EventSliderComponent } from './event-slider/event-slider.component';
 import { SongSliderComponent } from './song-slider/song-slider.component';
 import { PlayerComponent } from './player/player.component';
-import { SamuraiButtonDirective } from '@kuro-samurai/ngx-samurai-button';
 import { Song } from './interfaces/song.interface';
 import { Artist } from './interfaces/artist.interface';
 
@@ -19,7 +18,6 @@ import { Artist } from './interfaces/artist.interface';
     EventSliderComponent,
     SongSliderComponent,
     PlayerComponent,
-    SamuraiButtonDirective,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
