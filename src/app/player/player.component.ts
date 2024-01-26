@@ -9,7 +9,9 @@ import { Song } from '../interfaces/song.interface';
   styleUrl: './player.component.scss',
 })
 export class PlayerComponent {
-  playingSong: Song = {
+  public PLAYING = true;
+
+  public playingSong: Song = {
     id: '1',
     title: 'Khab Nabashim',
     artist: 'Shayea',

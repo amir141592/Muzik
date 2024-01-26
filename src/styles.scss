@@ -53,7 +53,11 @@
 }
 
 .icon-filled {
-  font-variation-settings: "FILL" 1;
+  font-variation-settings: "FILL" 1, "wght" 300, "GRAD" 0, "opsz" 24 !important;
+}
+
+.icon-3xl {
+  font-size: 32px;
 }
 
 * {

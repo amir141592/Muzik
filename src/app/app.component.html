@@ -105,11 +105,7 @@
           <h1 class="text-slate-500 font-fira-sans">Favorite Songs</h1>
         </div>
         <button
-          samuraiButton
-          variation="CONTENT_ONLY"
-          content="TEXT"
-          color="rgb(234 88 12)"
-          style="font-size: 16px"
+          class="text-orange-600 cursor-pointer font-medium transition hover:text-orange-700"
         >
           See All
         </button>
@@ -138,14 +134,12 @@
               </h2>
             </div>
           </div>
-          <button
-            samuraiButton
-            variation="CONTENT_ONLY"
-            content="ICON"
-            icon="play_arrow"
-            iconStyle="round"
-            color="rgb(234 88 12)"
-          ></button>
+          <button>
+            <span
+              class="material-symbols-rounded text-orange-600 icon-filled transition icon-3xl hover:text-orange-700"
+              >play_arrow</span
+            >
+          </button>
         </li>
         }
       </ul>
@@ -159,11 +153,7 @@
           <h1 class="text-slate-500 font-fira-sans">Favorite Artists</h1>
         </div>
         <button
-          samuraiButton
-          variation="CONTENT_ONLY"
-          content="TEXT"
-          color="rgb(234 88 12)"
-          style="font-size: 16px"
+          class="text-orange-600 cursor-pointer font-medium transition hover:text-orange-700"
         >
           See All
         </button>
@@ -181,20 +171,18 @@
               />
               } @else { <span class="material-symbols-rounded"> person </span> }
             </div>
-            <div class="h-full flex items-center">
+            <div class="flex items-center">
               <h1 class="font-signika font-medium text-slate-800 capitalize">
                 {{ artist.artisticName }}
               </h1>
             </div>
           </div>
-          <button
-            samuraiButton
-            variation="CONTENT_ONLY"
-            content="ICON"
-            icon="play_arrow"
-            iconStyle="round"
-            color="rgb(234 88 12)"
-          ></button>
+          <button>
+            <span
+              class="material-symbols-rounded text-orange-600 icon-filled transition icon-3xl hover:text-orange-700"
+              >play_arrow</span
+            >
+          </button>
         </li>
         }
       </ul>
