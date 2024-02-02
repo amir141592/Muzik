@@ -11,8 +11,11 @@ import { Song } from '../interfaces/song.interface';
 export class SongComponent {
   @Input({ required: true }) song: Song = {
     id: '',
+    type: 'SINGLE',
     title: '',
     artist: '',
+    coArtists: [],
+    album: '',
     image: '',
   };
 }

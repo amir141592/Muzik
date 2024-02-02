@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
@@ -7,6 +7,9 @@ import { SongSliderComponent } from './song-slider/song-slider.component';
 import { PlayerComponent } from './player/player.component';
 import { Song } from './interfaces/song.interface';
 import { Artist } from './interfaces/artist.interface';
+import { MuzikService } from './services/muzik.service';
+import { AuthenticationService } from './services/authentication.service';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'muzik-root',
@@ -23,56 +26,82 @@ import { Artist } from './interfaces/artist.interface';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
+  constructor(
+    private readonly authService: AuthenticationService,
+    private readonly muzikService: MuzikService
+  ) {
+    this.muzikService
+      .getHomeRecommendedSongs()
+      .subscribe((songs) => (this.homeRecommendedSongs = songs));
+
+    this.muzikService
+      .getHomeTopTracksSongs()
+      .subscribe((songs) => (this.homeTopTracksSongs = songs));
+  }
+
   title = 'muzik';
 
-  favoriteSongs: Song[] = [
-    {
-      id: '1',
-      title: 'Khab Nabashim',
-      artist: 'Shayea',
-      image: 'assets/song-images/amadebash.jpg',
-    },
-    {
-      id: '2',
-      title: 'Khab Nabashim',
-      artist: 'Shayea',
-      image: 'assets/song-images/amadebash.jpg',
-    },
-    {
-      id: '3',
-      title: 'Khab Nabashim',
-      artist: 'Shayea',
-      image: 'assets/song-images/amadebash.jpg',
-    },
-    {
-      id: '4',
-      title: 'Khab Nabashim',
-      artist: 'Shayea',
-      image: 'assets/song-images/amadebash.jpg',
-    },
-  ];
+  homeRecommendedSongs: Song[] = [];
+  homeTopTracksSongs: Song[] = [];
 
-  favoriteArtists: Artist[] = [
-    {
-      id: '1',
-      firstName: 'mohammad reza',
-      lastName: 'shayea',
-      artisticName: 'shayea',
-      image: 'assets/artist-images/shayea.jpg',
-    },
-    {
-      id: '2',
-      firstName: 'mohammad reza',
-      lastName: 'shayea',
-      artisticName: 'shayea',
-      image: 'assets/artist-images/shayea.jpg',
-    },
-    {
-      id: '3',
-      firstName: 'mohammad reza',
-      lastName: 'shayea',
-      artisticName: 'shayea',
-      image: 'assets/artist-images/shayea.jpg',
-    },
-  ];
+  playingSong: Song = {
+    id: '1',
+    type: 'SINGLE',
+    title: 'khab nabashim',
+    artist: 'shayea',
+    coArtists: [],
+    album: 'amadebash',
+    image: '',
+  };
+
+  // favoriteSongs: Song[] = [
+  //   {
+  //     id: '1',
+  //     title: 'Khab Nabashim',
+  //     artist: 'Shayea',
+  //     image: 'assets/song-images/amadebash.jpg',
+  //   },
+  //   {
+  //     id: '2',
+  //     title: 'Khab Nabashim',
+  //     artist: 'Shayea',
+  //     image: 'assets/song-images/amadebash.jpg',
+  //   },
+  //   {
+  //     id: '3',
+  //     title: 'Khab Nabashim',
+  //     artist: 'Shayea',
+  //     image: 'assets/song-images/amadebash.jpg',
+  //   },
+  //   {
+  //     id: '4',
+  //     title: 'Khab Nabashim',
+  //     artist: 'Shayea',
+  //     image: 'assets/song-images/amadebash.jpg',
+  //   },
+  // ];
+
+  // favoriteArtists: Artist[] = [
+  //   {
+  //     id: '1',
+  //     firstName: 'mohammad reza',
+  //     lastName: 'shayea',
+  //     artisticName: 'shayea',
+  //     image: 'assets/artist-images/shayea.jpg',
+  //   },
+  //   {
+  //     id: '2',
+  //     firstName: 'mohammad reza',
+  //     lastName: 'shayea',
+  //     artisticName: 'shayea',
+  //     image: 'assets/artist-images/shayea.jpg',
+  //   },
+  //   {
+  //     id: '3',
+  //     firstName: 'mohammad reza',
+  //     lastName: 'shayea',
+  //     artisticName: 'shayea',
+  //     image: 'assets/artist-images/shayea.jpg',
+  //   },
+  // ];
 }

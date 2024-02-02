@@ -4,6 +4,10 @@
     <img class="w-full h-auto" [src]="song.image" [alt]="song.title" /> } @else
     { <span class="material-symbols-rounded"> genres </span> }
   </div>
-  <h1 class="font-signika font-medium text-slate-800">{{ song.title }}</h1>
-  <h2 class="font-signika text-slate-500 hover:underline">{{ song.artist }}</h2>
+  <h1 class="font-signika font-medium text-slate-800 capitalize">
+    {{ song.title }}
+  </h1>
+  <h2 class="font-signika text-sm text-slate-500 capitalize hover:underline">
+    {{ song.artist }}
+  </h2>
 </div>

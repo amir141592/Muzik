@@ -87,12 +87,12 @@
     <div class="p-4">
       <muzik-header></muzik-header>
       <muzik-event-slider></muzik-event-slider>
-      <muzik-song-slider></muzik-song-slider>
-      <muzik-song-slider></muzik-song-slider>
+      <muzik-song-slider [songs]="homeRecommendedSongs"></muzik-song-slider>
+      <muzik-song-slider [songs]="homeTopTracksSongs"></muzik-song-slider>
       <!-- <muzik-song-slider></muzik-song-slider> -->
     </div>
     <div class="sticky bottom-0 w-full z-10">
-      <muzik-player></muzik-player>
+      <muzik-player [playingSong]="playingSong"></muzik-player>
     </div>
   </div>
   <div
@@ -110,7 +110,7 @@
           See All
         </button>
       </div>
-      <ul class="w-full">
+      <!-- <ul class="w-full">
         @for (song of favoriteSongs; track 'id') {
         <li class="flex justify-between items-center mb-4 w-full">
           <div class="flex">
@@ -142,7 +142,7 @@
           </button>
         </li>
         }
-      </ul>
+      </ul> -->
     </div>
     <div class="w-full mb-8">
       <div class="flex justify-between items-center w-full mb-6">
@@ -158,7 +158,7 @@
           See All
         </button>
       </div>
-      <ul class="w-full">
+      <!-- <ul class="w-full">
         @for (artist of favoriteArtists; track 'id') {
         <li class="flex justify-between items-center mb-4 w-full">
           <div class="flex">
@@ -185,7 +185,7 @@
           </button>
         </li>
         }
-      </ul>
+      </ul> -->
     </div>
   </div>
 </div>

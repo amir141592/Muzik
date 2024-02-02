@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Song } from '../interfaces/song.interface';
 
 @Component({
@@ -11,10 +11,13 @@ import { Song } from '../interfaces/song.interface';
 export class PlayerComponent {
   public PLAYING = true;
 
-  public playingSong: Song = {
-    id: '1',
-    title: 'Khab Nabashim',
-    artist: 'Shayea',
-    image: 'assets/song-images/amadebash.jpg',
+  @Input({ required: true }) public playingSong: Song = {
+    id: '',
+    type: 'SINGLE',
+    title: '',
+    artist: '',
+    coArtists: [],
+    album: '',
+    image: '',
   };
 }

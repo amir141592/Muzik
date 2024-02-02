@@ -1,21 +1,21 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { User } from '../interfaces/user.interface';
-import { BunFile } from 'bun';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
-  constructor(private readonly http: HttpClient) {}
-
-  readonly baseURL = 'http://localhost:3000';
+  constructor(
+    @Inject('BACKEND_URL') private readonly BACKEND_URL: string,
+    private readonly http: HttpClient
+  ) {}
 
   getUserInfo() {
-    return this.http.get<User>(`${this.baseURL}/user-info`);
+    return this.http.get<User>(this.BACKEND_URL + '/user-info');
   }
 
   getUserImage() {
-    return this.http.get<BunFile>(`${this.baseURL}/user-image`);
+    return this.http.get<Buffer>(this.BACKEND_URL + '/user-image');
   }
 }
