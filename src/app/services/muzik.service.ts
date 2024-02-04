@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { EventEmitter, Inject, Injectable } from '@angular/core';
 import { Song } from '../interfaces/song.interface';
 import { HttpClient } from '@angular/common/http';
 
@@ -10,6 +10,8 @@ export class MuzikService {
     @Inject('BACKEND_URL') private readonly BACKEND_URL: string,
     private readonly http: HttpClient
   ) {}
+
+  setPlayingSong = new EventEmitter<Song>(false);
 
   getHomeRecommendedSongs() {
     return this.http.get<Song[]>(this.BACKEND_URL + '/muziks/home/recommended');

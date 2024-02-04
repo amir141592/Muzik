@@ -37,6 +37,10 @@ export class AppComponent {
     this.muzikService
       .getHomeTopTracksSongs()
       .subscribe((songs) => (this.homeTopTracksSongs = songs));
+
+    this.muzikService.setPlayingSong.subscribe(
+      (value) => (this.playingSong = value)
+    );
   }
 
   title = 'muzik';
@@ -44,64 +48,56 @@ export class AppComponent {
   homeRecommendedSongs: Song[] = [];
   homeTopTracksSongs: Song[] = [];
 
-  playingSong: Song = {
-    id: '1',
-    type: 'SINGLE',
-    title: 'khab nabashim',
-    artist: 'shayea',
-    coArtists: [],
-    album: 'amadebash',
-    image: '',
-  };
+  playingSong?: Song;
 
-  // favoriteSongs: Song[] = [
-  //   {
-  //     id: '1',
-  //     title: 'Khab Nabashim',
-  //     artist: 'Shayea',
-  //     image: 'assets/song-images/amadebash.jpg',
-  //   },
-  //   {
-  //     id: '2',
-  //     title: 'Khab Nabashim',
-  //     artist: 'Shayea',
-  //     image: 'assets/song-images/amadebash.jpg',
-  //   },
-  //   {
-  //     id: '3',
-  //     title: 'Khab Nabashim',
-  //     artist: 'Shayea',
-  //     image: 'assets/song-images/amadebash.jpg',
-  //   },
-  //   {
-  //     id: '4',
-  //     title: 'Khab Nabashim',
-  //     artist: 'Shayea',
-  //     image: 'assets/song-images/amadebash.jpg',
-  //   },
-  // ];
+  favoriteSongs = [
+    {
+      id: '1',
+      title: 'Khab Nabashim',
+      artist: 'Shayea',
+      image: 'assets/song-images/amadebash.jpg',
+    },
+    {
+      id: '2',
+      title: 'Khab Nabashim',
+      artist: 'Shayea',
+      image: 'assets/song-images/amadebash.jpg',
+    },
+    {
+      id: '3',
+      title: 'Khab Nabashim',
+      artist: 'Shayea',
+      image: 'assets/song-images/amadebash.jpg',
+    },
+    {
+      id: '4',
+      title: 'Khab Nabashim',
+      artist: 'Shayea',
+      image: 'assets/song-images/amadebash.jpg',
+    },
+  ];
 
-  // favoriteArtists: Artist[] = [
-  //   {
-  //     id: '1',
-  //     firstName: 'mohammad reza',
-  //     lastName: 'shayea',
-  //     artisticName: 'shayea',
-  //     image: 'assets/artist-images/shayea.jpg',
-  //   },
-  //   {
-  //     id: '2',
-  //     firstName: 'mohammad reza',
-  //     lastName: 'shayea',
-  //     artisticName: 'shayea',
-  //     image: 'assets/artist-images/shayea.jpg',
-  //   },
-  //   {
-  //     id: '3',
-  //     firstName: 'mohammad reza',
-  //     lastName: 'shayea',
-  //     artisticName: 'shayea',
-  //     image: 'assets/artist-images/shayea.jpg',
-  //   },
-  // ];
+  favoriteArtists: Artist[] = [
+    {
+      id: '1',
+      firstName: 'mohammad reza',
+      lastName: 'shayea',
+      artisticName: 'shayea',
+      image: 'assets/artist-images/shayea.jpg',
+    },
+    {
+      id: '2',
+      firstName: 'mohammad reza',
+      lastName: 'shayea',
+      artisticName: 'shayea',
+      image: 'assets/artist-images/shayea.jpg',
+    },
+    {
+      id: '3',
+      firstName: 'mohammad reza',
+      lastName: 'shayea',
+      artisticName: 'shayea',
+      image: 'assets/artist-images/shayea.jpg',
+    },
+  ];
 }

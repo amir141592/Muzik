@@ -14,10 +14,12 @@ export class PlayerComponent {
   @Input({ required: true }) public playingSong: Song = {
     id: '',
     type: 'SINGLE',
+    parentalAdvisory: false,
     title: '',
     artist: '',
     coArtists: [],
     album: '',
     image: '',
+    file: '',
   };
 }
