@@ -1,9 +1,9 @@
 <div class="w-44 cursor-pointer">
-  <!-- Song Cover -->
+  <!-- ? Song Cover -->
   <div
     class="group w-44 h-44 relative rounded-lg overflow-hidden mb-2 flex justify-center items-center"
   >
-    <!-- Song Play Button -->
+    <!-- ? Song Play Button -->
     <div
       class="absolute w-full h-full flex justify-center items-center opacity-0 bg-slate-500/50 transition group-hover:opacity-100"
       (click)="playSong()"
@@ -15,7 +15,7 @@
       </span>
     </div>
     @if (song.parentalAdvisory) {
-    <!-- Song PA Mark -->
+    <!-- ? Song PA Mark -->
     <span class="absolute top-2 left-2 p-1 bg-orange-600/50 rounded">
       <p
         class="border rounded text-xs p-1 text-white"
@@ -25,13 +25,13 @@
       </p>
     </span>
     } @if (song.image) {
-    <!-- Song Image -->
+    <!-- ? Song Image -->
     <img class="w-full h-auto" [src]="song.image" [alt]="song.title" /> } @else
     {
-    <!-- Song Icon -->
+    <!-- ? Song Icon -->
     <span class="material-symbols-rounded text-4xl"> genres </span> }
   </div>
-  <!-- Song Title -->
+  <!-- ? Song Title -->
   <h1
     class="font-signika w-full truncate font-medium text-slate-800 capitalize"
     [title]="song.title"
@@ -39,7 +39,7 @@
   >
     {{ song.title }}
   </h1>
-  <!-- Song Artists -->
+  <!-- ? Song Artists -->
   <h2
     class="font-signika w-full truncate text-sm text-slate-500 capitalize"
     [title]="
@@ -49,10 +49,10 @@
           : '') | titlecase
     "
   >
-    <!-- Main Artist -->
+    <!-- ? Main Artist -->
     <span class="hover:underline">{{ song.artist }}</span>
     @if (song.coArtists.length) {
-    <!-- Co-Artists -->
+    <!-- ? Co-Artists -->
     <span>
       (ft. @for (coArtist of song.coArtists; track $index) {
       <span class="hover:underline">{{ coArtist }}</span> @if ($index <

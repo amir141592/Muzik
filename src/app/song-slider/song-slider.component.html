@@ -1,12 +1,14 @@
 <div class="w-full bg-transparent mb-4">
+  <!-- ? Header -->
   <div class="w-full flex justify-between items-center mb-4">
-    <h2 class="font-fira-sans text-xl font-medium">Recommended For You</h2>
+    <h2 class="font-fira-sans text-xl font-medium capitalize">{{ title }}</h2>
     <button
       class="text-orange-600 cursor-pointer font-medium transition hover:text-orange-700"
     >
       See More
     </button>
   </div>
+  <!-- ? Song List -->
   <div class="flex items-center gap-10 overflow-x-auto">
     @for (song of songs; track song.id) {
     <muzik-song [song]="song"></muzik-song> } @empty {

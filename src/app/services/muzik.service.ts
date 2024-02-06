@@ -11,7 +11,7 @@ export class MuzikService {
     private readonly http: HttpClient
   ) {}
 
-  setPlayingSong = new EventEmitter<Song>(false);
+  setPlayingSong$ = new EventEmitter<Song>(false);
 
   getHomeRecommendedSongs() {
     return this.http.get<Song[]>(this.BACKEND_URL + '/muziks/home/recommended');

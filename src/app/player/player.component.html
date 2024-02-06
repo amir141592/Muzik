@@ -1,15 +1,28 @@
 <div class="w-full bg-slate-50 relative flex justify-between p-4 pt-6">
-  <audio [src]="playingSong.file" autoplay controls></audio>
+  <!-- ? Audio Element -->
+  <audio
+    id="audio-player"
+    class="invisible"
+    [src]="playingSong.file"
+    (loadstart)="loadingSong()"
+    (loadeddata)="loadedSong()"
+    (ended)="endedSong()"
+  ></audio>
+  <!-- TODO show current time and song duration -->
+  <!-- ? Audio Seeker -->
   <input
     type="range"
     name="seeker"
     id="seeker"
     class="absolute top-0 w-full cursor-col-resize"
     style="transform: translate(-16px, -4px); accent-color: rgb(234 88 12)"
-    value="180"
-    max="207"
+    value="0"
+    step="1"
+    (input)="seek()"
   />
+  <!-- ? Song Info -->
   <div class="flex">
+    <!-- ? Song Image -->
     <div class="w-16 h-16 rounded-lg overflow-hidden mr-2">
       @if (playingSong.image) {
       <img
@@ -20,14 +33,36 @@
       } @else { <span class="material-symbols-rounded"> genres </span> }
     </div>
     <div class="flex flex-col justify-center">
-      <h1 class="font-signika font-medium text-slate-800">
+      <!-- ? Song Name -->
+      <h1 class="font-signika font-medium capitalize text-slate-800">
         {{ playingSong.title }}
       </h1>
-      <h2 class="font-signika text-slate-500 hover:underline cursor-pointer">
-        {{ playingSong.artist }}
+      <!-- ? Song Artists -->
+      <h2
+        class="font-signika w-full truncate text-sm text-slate-500 capitalize"
+        [title]="
+          playingSong.artist +
+            (playingSong.coArtists.length
+              ? ' ' + '(ft. ' + playingSong.coArtists.join(', ') + ' )'
+              : '') | titlecase
+        "
+      >
+        <!-- ? Main Artist -->
+        <span class="cursor-pointer hover:underline">{{
+          playingSong.artist
+        }}</span>
+        @if (playingSong.coArtists.length) {
+        <!-- ? Co-Artists -->
+        <span>
+          (ft. @for (coArtist of playingSong.coArtists; track $index) {
+          <span class="cursor-pointer hover:underline">{{ coArtist }}</span> @if
+          ($index < playingSong.coArtists.length - 1) { <span>, </span> } } )
+        </span>
+        }
       </h2>
     </div>
   </div>
+  <!-- ? Audio Controls -->
   <div
     class="flex justify-between items-center gap-4 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
   >
@@ -42,11 +77,17 @@
         >skip_previous</span
       >
     </button>
-    <button>
+    <button (click)="togglePlay()">
       <span
-        class="material-symbols-rounded p-1 icon-3xl transition rounded-full bg-orange-600 text-slate-50 hover:bg-orange-700"
-        [class.icon-filled]="PLAYING"
-        >{{ PLAYING ? "pause" : "play_arrow" }}</span
+        class="material-symbols-rounded p-1 icon-3xl icon-filled transition rounded-full bg-orange-600 text-slate-50 hover:bg-orange-700"
+        [class.animation-rotate]="AUDIO_STATE == 'LOADING'"
+        >{{
+          AUDIO_STATE == "PLAYING"
+            ? "pause"
+            : AUDIO_STATE == "PAUSED"
+            ? "play_arrow"
+            : "hourglass"
+        }}</span
       >
     </button>
     <button>
@@ -61,16 +102,23 @@
       >
     </button>
   </div>
+  <!-- ? Audio Volume Control -->
   <div class="flex items-center">
-    <span class="material-symbols-rounded mr-1">volume_up</span>
+    <span
+      class="material-symbols-rounded mr-1 transition cursor-pointer hover:text-orange-600"
+      (click)="toggleVolume()"
+      >{{ VOLUME_STATE == "VOLUBLE" ? "volume_up" : "volume_off" }}</span
+    >
     <input
       type="range"
       name="volume"
       id="volume"
       class="w-20 h-1 cursor-col-resize"
       style="accent-color: rgb(234 88 12)"
-      value="100"
-      max="100"
+      value="1"
+      max="1"
+      step="0.01"
+      (input)="changeVolume()"
     />
   </div>
 </div>

@@ -26,6 +26,6 @@ export class SongComponent {
   };
 
   playSong() {
-    this.muzikService.setPlayingSong.emit(this.song);
+    this.muzikService.setPlayingSong$.emit(this.song);
   }
 }

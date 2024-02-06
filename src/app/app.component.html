@@ -87,9 +87,14 @@
     <div class="p-4">
       <muzik-header></muzik-header>
       <muzik-event-slider></muzik-event-slider>
-      <muzik-song-slider [songs]="homeRecommendedSongs"></muzik-song-slider>
-      <muzik-song-slider [songs]="homeTopTracksSongs"></muzik-song-slider>
-      <!-- <muzik-song-slider></muzik-song-slider> -->
+      <muzik-song-slider
+        [title]="'New Releases'"
+        [songs]="homeRecommendedSongs"
+      ></muzik-song-slider>
+      <muzik-song-slider
+        [title]="'Recommended For You'"
+        [songs]="homeTopTracksSongs"
+      ></muzik-song-slider>
     </div>
     <div class="sticky bottom-0 w-full z-10">
       @if (playingSong) {

@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
@@ -9,7 +9,6 @@ import { Song } from './interfaces/song.interface';
 import { Artist } from './interfaces/artist.interface';
 import { MuzikService } from './services/muzik.service';
 import { AuthenticationService } from './services/authentication.service';
-import { map } from 'rxjs';
 
 @Component({
   selector: 'muzik-root',
@@ -25,7 +24,7 @@ import { map } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
   constructor(
     private readonly authService: AuthenticationService,
     private readonly muzikService: MuzikService
@@ -37,13 +36,13 @@ export class AppComponent {
     this.muzikService
       .getHomeTopTracksSongs()
       .subscribe((songs) => (this.homeTopTracksSongs = songs));
-
-    this.muzikService.setPlayingSong.subscribe(
-      (value) => (this.playingSong = value)
-    );
   }
 
   title = 'muzik';
+
+  $setPlayingSong$ = this.muzikService.setPlayingSong$.subscribe(
+    (value) => (this.playingSong = value)
+  );
 
   homeRecommendedSongs: Song[] = [];
   homeTopTracksSongs: Song[] = [];
@@ -100,4 +99,8 @@ export class AppComponent {
       image: 'assets/artist-images/shayea.jpg',
     },
   ];
+
+  ngOnDestroy(): void {
+    this.$setPlayingSong$.unsubscribe();
+  }
 }
