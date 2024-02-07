@@ -1,4 +1,4 @@
-export interface Song {
+export interface Video {
   id: string;
   type: 'SINGLE' | 'ALBUM';
   parentalAdvisory: boolean;
@@ -6,6 +6,6 @@ export interface Song {
   artist: string;
   coArtists: string[];
   album: string;
-  image: string;
+  thumbnail: string;
   file: string;
 }

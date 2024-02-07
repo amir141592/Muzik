@@ -5,14 +5,15 @@ import {
   OnChanges,
   OnDestroy,
 } from '@angular/core';
-import { TitleCasePipe } from '@angular/common';
+import { AsyncPipe, TitleCasePipe } from '@angular/common';
 import { Song } from '../interfaces/song.interface';
 import { Observable, Subscription } from 'rxjs';
+import { TimePipe } from '../pipes/time.pipe';
 
 @Component({
   selector: 'muzik-player',
   standalone: true,
-  imports: [TitleCasePipe],
+  imports: [TitleCasePipe, AsyncPipe, TimePipe],
   templateUrl: './player.component.html',
   styleUrl: './player.component.scss',
 })
@@ -20,15 +21,6 @@ export class PlayerComponent implements AfterViewInit, OnDestroy, OnChanges {
   private audioElement?: HTMLAudioElement;
   private seekerElement?: HTMLInputElement;
   private volumeElement?: HTMLInputElement;
-
-  AUDIO_STATE: 'PLAYING' | 'PAUSED' | 'LOADING' = 'PAUSED';
-  VOLUME_STATE: 'VOLUBLE' | 'MUTE' = 'VOLUBLE';
-
-  audioCurrentTime$ = new Observable<number>((sub) => {
-    setInterval(() => sub.next(this.audioElement?.currentTime), 1000);
-  });
-
-  $audioCurrentTime$?: Subscription;
 
   @Input({ required: true }) playingSong: Song = {
     id: '',
@@ -41,6 +33,17 @@ export class PlayerComponent implements AfterViewInit, OnDestroy, OnChanges {
     image: '',
     file: '',
   };
+
+  AUDIO_STATE: 'PLAYING' | 'PAUSED' | 'LOADING' = 'PAUSED';
+  VOLUME_STATE: 'VOLUBLE' | 'MUTE' = 'VOLUBLE';
+
+  audioCurrentTime$ = new Observable<number>((sub) => {
+    setInterval(() => sub.next(this.audioElement?.currentTime), 10);
+  });
+
+  $audioCurrentTime$?: Subscription;
+
+  audioDuration: number = 0;
 
   private play(): void {
     this.audioElement?.play().then(() => {
@@ -66,6 +69,7 @@ export class PlayerComponent implements AfterViewInit, OnDestroy, OnChanges {
     if (this.seekerElement && this.audioElement) {
       this.seekerElement.value = '0';
       this.seekerElement.max = String(this.audioElement.duration);
+      this.audioDuration = this.audioElement.duration;
       this.play();
     }
   }
