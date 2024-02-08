@@ -9,19 +9,16 @@
       class="*:flex *:items-center *:py-2 *:ml-4 *:font-signika *:cursor-pointer *:text-slate-700 *:transition [&>li>span]:transition [&>li>span]:mr-2 [&>li>span]:text-slate-700"
     >
       <li class="hover:text-orange-600 group">
-        <span class="material-symbols-rounded group-hover:text-orange-600">
-          home </span
-        >Home
+        <i class="isax isax-home-2 mr-2"></i>
+        Home
       </li>
       <li class="hover:text-orange-600 group">
-        <span class="material-symbols-rounded group-hover:text-orange-600">
-          explore </span
-        >Explore
+        <i class="isax isax-route-square mr-2"></i>
+        Explore
       </li>
       <li class="hover:text-orange-600 group">
-        <span class="material-symbols-rounded group-hover:text-orange-600">
-          mic </span
-        >Podcast
+        <i class="isax isax-microphone-2 mr-2"></i>
+        Podcast
       </li>
     </ul>
     <h2 class="mb-2 text-slate-600">My Library</h2>
@@ -29,14 +26,12 @@
       class="*:flex *:items-center *:py-2 *:ml-4 *:font-signika *:cursor-pointer *:text-slate-700 *:transition [&>li>span]:transition [&>li>span]:mr-2 [&>li>span]:text-slate-700"
     >
       <li class="hover:text-orange-600 group">
-        <span class="material-symbols-rounded group-hover:text-orange-600">
-          history </span
-        >Recently Played
+        <i class="isax isax-play-circle mr-2"></i>
+        Recently Played
       </li>
       <li class="hover:text-orange-600 group">
-        <span class="material-symbols-rounded group-hover:text-orange-600">
-          star </span
-        >Favorite Songs
+        <i class="isax isax-star mr-2"></i>
+        Favorite Songs
       </li>
     </ul>
     <h2 class="mb-2 text-slate-600">Playlists</h2>
@@ -44,24 +39,20 @@
       class="*:flex *:items-center *:py-2 *:ml-4 *:font-signika *:cursor-pointer *:text-slate-700 *:transition [&>li>span]:transition [&>li>span]:mr-2 [&>li>span]:text-slate-700"
     >
       <li class="hover:text-orange-600 group">
-        <span class="material-symbols-rounded group-hover:text-orange-600">
-          playlist_play </span
-        >Hip Hop
+        <i class="isax isax-music-playlist mr-2"></i>
+        Hip Hop
       </li>
       <li class="hover:text-orange-600 group">
-        <span class="material-symbols-rounded group-hover:text-orange-600">
-          playlist_play </span
-        >Classic
+        <i class="isax isax-music-playlist mr-2"></i>
+        Classic
       </li>
       <li class="hover:text-orange-600 group">
-        <span class="material-symbols-rounded group-hover:text-orange-600">
-          playlist_play </span
-        >Study
+        <i class="isax isax-music-playlist mr-2"></i>
+        Study
       </li>
       <li class="hover:text-orange-600 group">
-        <span class="material-symbols-rounded group-hover:text-orange-600">
-          playlist_play </span
-        >Chill
+        <i class="isax isax-music-playlist mr-2"></i>
+        Chill
       </li>
     </ul>
     <div
@@ -71,16 +62,14 @@
         class="w-8 h-8 flex justify-center items-center rounded-full overflow-hidden mr-2"
       >
         <!-- <img src="" alt="" /> -->
-        <span class="material-symbols-rounded"> person </span>
+        <i class="isax isax-profile-circle"></i>
       </div>
       <p class="font-signika group-hover:text-orange-600 transition">
         Amir Allahdadian
       </p>
-      <span
-        class="material-symbols-rounded absolute right-0 mr-2 group-hover:text-orange-600 transition"
-      >
-        chevron_right
-      </span>
+      <i
+        class="isax isax-arrow-right-3 absolute right-0 mr-2 group-hover:text-orange-600 transition"
+      ></i>
     </div>
   </div>
   <div class="flex-1 overflow-y-auto overflow-x-hidden relative">
@@ -108,7 +97,7 @@
     <div class="w-full mb-8">
       <div class="flex justify-between items-center w-full mb-6">
         <div class="flex items-center">
-          <span class="material-symbols-rounded mr-1 text-slate-500">star</span>
+          <i class="isax isax-star mr-2 text-slate-500"></i>
           <h1 class="text-slate-500 font-fira-sans">Favorite Songs</h1>
         </div>
         <button
@@ -128,7 +117,7 @@
                 [src]="song.image"
                 [alt]="song.title"
               />
-              } @else { <span class="material-symbols-rounded"> genres </span> }
+              } @else { <i class="isax isax-audio-square"></i> }
             </div>
             <div class="flex flex-col justify-center">
               <h1 class="font-signika font-medium text-slate-800">
@@ -142,10 +131,9 @@
             </div>
           </div>
           <button>
-            <span
-              class="material-symbols-rounded text-orange-600 icon-filled transition icon-3xl hover:text-orange-700"
-              >play_arrow</span
-            >
+            <i
+              class="isax isax-play5 text-orange-600 transition hover:text-orange-700"
+            ></i>
           </button>
         </li>
         }
@@ -154,9 +142,7 @@
     <div class="w-full mb-8">
       <div class="flex justify-between items-center w-full mb-6">
         <div class="flex items-center">
-          <span class="material-symbols-rounded mr-1 text-slate-500">
-            group
-          </span>
+          <i class="isax isax-people mr-2 text-slate-500"></i>
           <h1 class="text-slate-500 font-fira-sans">Favorite Artists</h1>
         </div>
         <button
@@ -176,7 +162,7 @@
                 [src]="artist.image"
                 [alt]="artist.artisticName"
               />
-              } @else { <span class="material-symbols-rounded"> person </span> }
+              } @else { <i class="isax isax-profile-circle"></i> }
             </div>
             <div class="flex items-center">
               <h1 class="font-signika font-medium text-slate-800 capitalize">
@@ -185,10 +171,9 @@
             </div>
           </div>
           <button>
-            <span
-              class="material-symbols-rounded text-orange-600 icon-filled transition icon-3xl hover:text-orange-700"
-              >play_arrow</span
-            >
+            <i
+              class="isax isax-play5 text-orange-600 transition hover:text-orange-700"
+            ></i>
           </button>
         </li>
         }

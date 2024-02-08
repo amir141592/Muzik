@@ -5,15 +5,14 @@ import {
   OnChanges,
   OnDestroy,
 } from '@angular/core';
-import { AsyncPipe, TitleCasePipe } from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 import { Song } from '../interfaces/song.interface';
-import { Observable, Subscription } from 'rxjs';
 import { TimePipe } from '../pipes/time.pipe';
 
 @Component({
   selector: 'muzik-player',
   standalone: true,
-  imports: [TitleCasePipe, AsyncPipe, TimePipe],
+  imports: [TitleCasePipe, TimePipe],
   templateUrl: './player.component.html',
   styleUrl: './player.component.scss',
 })
@@ -37,27 +36,28 @@ export class PlayerComponent implements AfterViewInit, OnDestroy, OnChanges {
   AUDIO_STATE: 'PLAYING' | 'PAUSED' | 'LOADING' = 'PAUSED';
   VOLUME_STATE: 'VOLUBLE' | 'MUTE' = 'VOLUBLE';
 
-  audioCurrentTime$ = new Observable<number>((sub) => {
-    setInterval(() => sub.next(this.audioElement?.currentTime), 10);
-  });
+  CurrentTimeInterval?: NodeJS.Timeout;
 
-  $audioCurrentTime$?: Subscription;
-
+  audioCurrentTime?: number | string = 0;
   audioDuration: number = 0;
+  volume: number = 1;
 
   private play(): void {
     this.audioElement?.play().then(() => {
       this.AUDIO_STATE = 'PLAYING';
 
-      this.audioCurrentTime$.subscribe((value) => {
-        if (this.seekerElement) this.seekerElement.value = String(value);
-      });
+      this.CurrentTimeInterval = setInterval(() => {
+        if (this.seekerElement && this.audioElement)
+          this.audioCurrentTime = this.seekerElement.value = String(
+            this.audioElement.currentTime
+          );
+      }, 10);
     });
   }
 
   private pause(): void {
     this.audioElement?.pause();
-    this.$audioCurrentTime$?.unsubscribe();
+    clearInterval(this.CurrentTimeInterval);
     this.AUDIO_STATE = 'PAUSED';
   }
 
@@ -70,6 +70,7 @@ export class PlayerComponent implements AfterViewInit, OnDestroy, OnChanges {
       this.seekerElement.value = '0';
       this.seekerElement.max = String(this.audioElement.duration);
       this.audioDuration = this.audioElement.duration;
+      clearInterval(this.CurrentTimeInterval);
       this.play();
     }
   }
@@ -120,6 +121,7 @@ export class PlayerComponent implements AfterViewInit, OnDestroy, OnChanges {
   changeVolume(): void {
     if (this.audioElement && this.volumeElement) {
       this.audioElement.volume = Number(this.volumeElement.value);
+      this.volume = Number(this.volumeElement.value);
 
       if (this.volumeElement.value == '0') this.VOLUME_STATE = 'MUTE';
       else this.VOLUME_STATE = 'VOLUBLE';
@@ -140,6 +142,6 @@ export class PlayerComponent implements AfterViewInit, OnDestroy, OnChanges {
   }
 
   ngOnDestroy(): void {
-    this.$audioCurrentTime$?.unsubscribe();
+    clearInterval(this.CurrentTimeInterval);
   }
 }

@@ -25,7 +25,6 @@
     "@angular/ssr": "^17.1.1",
     "elysia": "latest",
     "express": "^4.18.2",
-    "material-symbols": "^0.14.3",
     "mongoose": "^8.0.4",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

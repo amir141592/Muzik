@@ -22,7 +22,7 @@
   />
   <!-- ? Audio Current Time -->
   <span class="absolute top-2 left-2 text-slate-500 text-xs">{{
-    audioCurrentTime$ | async | time
+    audioCurrentTime | time
   }}</span>
   <!-- ? Audio Duration -->
   <span class="absolute top-2 right-2 text-slate-500 text-xs">{{
@@ -38,7 +38,7 @@
         [src]="playingSong.image"
         [alt]="playingSong.title"
       />
-      } @else { <span class="material-symbols-rounded"> genres </span> }
+      } @else { <i class="isax isax-audio-square"></i> }
     </div>
     <div class="flex flex-col justify-center">
       <!-- ? Song Name -->
@@ -75,48 +75,44 @@
     class="flex justify-between items-center gap-4 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
   >
     <button>
-      <span class="material-symbols-rounded transition hover:text-orange-600"
-        >shuffle</span
-      >
+      <i class="isax isax-shuffle transition hover:text-orange-600"></i>
     </button>
     <button>
-      <span
-        class="material-symbols-rounded transition icon-3xl hover:text-orange-600"
-        >skip_previous</span
-      >
+      <i class="isax isax-previous transition hover:text-orange-600"></i>
     </button>
     <button (click)="togglePlay()">
-      <span
-        class="material-symbols-rounded p-1 icon-3xl icon-filled transition rounded-full bg-orange-600 text-slate-50 hover:bg-orange-700"
+      <i
+        class="isax p-2 transition rounded-full bg-orange-600 text-slate-50 hover:bg-orange-700"
+        [class]="
+          AUDIO_STATE == 'PLAYING'
+            ? 'isax-pause5'
+            : AUDIO_STATE == 'PAUSED'
+            ? 'isax-play5'
+            : 'isax-timer5'
+        "
         [class.animation-rotate]="AUDIO_STATE == 'LOADING'"
-        >{{
-          AUDIO_STATE == "PLAYING"
-            ? "pause"
-            : AUDIO_STATE == "PAUSED"
-            ? "play_arrow"
-            : "hourglass"
-        }}</span
-      >
+      ></i>
     </button>
     <button>
-      <span
-        class="material-symbols-rounded transition icon-3xl hover:text-orange-600"
-        >skip_next</span
-      >
+      <i class="isax isax-next transition hover:text-orange-600"></i>
     </button>
     <button>
-      <span class="material-symbols-rounded transition hover:text-orange-600"
-        >repeat</span
-      >
+      <i class="isax isax-repeate-music transition hover:text-orange-600"></i>
     </button>
   </div>
   <!-- ? Audio Volume Control -->
   <div class="flex items-center">
-    <span
-      class="material-symbols-rounded mr-1 transition cursor-pointer hover:text-orange-600"
+    <i
+      class="isax mr-1 transition cursor-pointer hover:text-orange-600"
+      [class]="
+        VOLUME_STATE == 'VOLUBLE'
+          ? volume > 0.5
+            ? 'isax-volume-high'
+            : 'isax-volume-low'
+          : 'isax-volume-slash'
+      "
       (click)="toggleVolume()"
-      >{{ VOLUME_STATE == "VOLUBLE" ? "volume_up" : "volume_off" }}</span
-    >
+    ></i>
     <input
       type="range"
       name="volume"
