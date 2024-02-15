@@ -188,12 +188,18 @@ mongooseConnection
           file: 'http://localhost:3000/song/shayea_vel-kon.mp3',
         },
       ])
-      .get('/song/:name', ({ params: { name } }) => {
-        return Bun.file(
+      .get('/song/:name', ({ params: { name } }) =>
+        Bun.file(
           import.meta.dir +
             `/content/music/${name.split('_')[0]}/${name.split('_')[1]}`
-        );
-      })
+        )
+      )
+      .get('/video/:name', ({ params: { name } }) =>
+        Bun.file(
+          import.meta.dir +
+            `/content/video/${name.split('_')[0]}/${name.split('_')[1]}`
+        )
+      )
       .listen(3000);
   })
   .catch((error) => console.error(error));

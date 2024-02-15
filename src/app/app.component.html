@@ -75,7 +75,7 @@
   <div class="flex-1 overflow-y-auto overflow-x-hidden relative">
     <div class="p-4">
       <muzik-header></muzik-header>
-      <muzik-event-slider></muzik-event-slider>
+      <muzik-event-slider [events]="sliderEvents"></muzik-event-slider>
       <muzik-song-slider
         [title]="'New Releases'"
         [songs]="homeRecommendedSongs"

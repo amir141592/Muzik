@@ -9,6 +9,7 @@ import { Song } from './interfaces/song.interface';
 import { Artist } from './interfaces/artist.interface';
 import { MuzikService } from './services/muzik.service';
 import { AuthenticationService } from './services/authentication.service';
+import { MuzikEvent } from './interfaces/muzik-event.interface';
 
 @Component({
   selector: 'muzik-root',
@@ -38,14 +39,21 @@ export class AppComponent implements OnDestroy {
       .subscribe((songs) => (this.homeTopTracksSongs = songs));
   }
 
-  title = 'muzik';
-
   $setPlayingSong$ = this.muzikService.setPlayingSong$.subscribe(
     (value) => (this.playingSong = value)
   );
 
   homeRecommendedSongs: Song[] = [];
   homeTopTracksSongs: Song[] = [];
+  sliderEvents: MuzikEvent[] = [
+    {
+      id: '1',
+      type: 'VIDEO',
+      title: 'concerts next month',
+      description: "Don't miss your favorite artist's concert",
+      file: 'http://localhost:3000/video/mohsen-yeganeh_behet-ghol-midam.mp4',
+    },
+  ];
 
   playingSong?: Song;
 

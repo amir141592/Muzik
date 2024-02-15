@@ -12,6 +12,9 @@ export class MuzikService {
   ) {}
 
   setPlayingSong$ = new EventEmitter<Song>(false);
+  playSong$ = new EventEmitter<void>(false);
+  pauseSong$ = new EventEmitter<void>(false);
+  muteSlider$ = new EventEmitter<void>(false);
 
   getHomeRecommendedSongs() {
     return this.http.get<Song[]>(this.BACKEND_URL + '/muziks/home/recommended');
@@ -19,21 +22,5 @@ export class MuzikService {
 
   getHomeTopTracksSongs() {
     return this.http.get<Song[]>(this.BACKEND_URL + '/muziks/home/top-tracks');
-  }
-
-  getSongTypeForImage(type: string) {
-    switch (type) {
-      case 'ALBUM':
-        return 'albums';
-
-      case 'SINGLE':
-        return 'singles';
-
-      case 'VIDEO':
-        return 'videos';
-
-      default:
-        throw new Error('unknown song type');
-    }
   }
 }

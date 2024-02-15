@@ -1,17 +1,54 @@
-<div class="w-full aspect-[32/9] rounded-2xl bg-slate-900 mb-4 relative">
-  <!-- TODO add video element -->
-  <h2 class="absolute top-4 left-4 text-3xl text-slate-300 font-fira-sans">
-    Concerts in Next Month
-  </h2>
+<div
+  class="w-full aspect-[32/9] rounded-2xl bg-slate-900 mb-4 relative overflow-hidden"
+>
+  @if (currentEvent.type == 'VIDEO') {
+  <video
+    id="videoPlayer"
+    class="absolute aspect-[32/9] object-cover object-center"
+    autoplay
+    [volume]="0"
+    [src]="currentEvent.file"
+  ></video>
+  } @else if (currentEvent.type == 'IMAGE') {
+  <img [src]="currentEvent.file" [alt]="currentEvent.title" />
+  }
+  <div
+    class="w-full h-full absolute"
+    style="
+      background-image: radial-gradient(transparent 0%, hsl(217, 33%, 17%) 90%);
+    "
+  ></div>
+  <h1
+    class="absolute top-4 left-4 text-3xl text-slate-300 capitalize font-fira-sans"
+  >
+    {{ currentEvent.title }}
+  </h1>
   <p class="absolute top-14 left-4 text-slate-400 font-signika">
-    Don't miss your favorite artist's concert
+    {{ currentEvent.description }}
   </p>
+  @if (currentEvent.buttonTitle) {
   <button
     class="absolute top-24 left-4 py-2 px-4 rounded-full bg-orange-600 text-slate-50 cursor-pointer transition font-fira-sans hover:bg-orange-700"
+    (click)="(currentEvent.buttonAction)"
   >
-    See Concerts List
+    {{ currentEvent.buttonTitle }}
   </button>
-  <div class="absolute bottom-6 right-6 flex items-center">
-    <span class="w-4 h-0.5 rounded-full bg-slate-100"></span>
+  }
+  <div class="absolute bottom-6 left-6 flex items-center">
+    @for (event of events; track $index) {
+    <span
+      class="w-4 h-0.5 mr-2 rounded-full"
+      [class]="currentEventIndex == $index ? 'bg-slate-200' : 'bg-slate-500'"
+    ></span>
+    }
   </div>
+  @if (currentEvent.type == 'VIDEO') {
+  <i
+    class="isax absolute bottom-6 right-6 w-8 h-8 flex cursor-pointer justify-center items-center text-slate-500 border-2 border-slate-500 rounded-full transition hover:text-orange-600 hover:border-orange-600"
+    [class]="
+      VOLUME_STATE == 'VOLUBLE' ? 'isax-volume-high' : 'isax-volume-slash'
+    "
+    (click)="toggleVolume()"
+  ></i>
+  }
 </div>

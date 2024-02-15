@@ -8,6 +8,8 @@ import {
 import { TitleCasePipe } from '@angular/common';
 import { Song } from '../interfaces/song.interface';
 import { TimePipe } from '../pipes/time.pipe';
+import { MuzikService } from '../services/muzik.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'muzik-player',
@@ -17,6 +19,11 @@ import { TimePipe } from '../pipes/time.pipe';
   styleUrl: './player.component.scss',
 })
 export class PlayerComponent implements AfterViewInit, OnDestroy, OnChanges {
+  constructor(private readonly muzikService: MuzikService) {
+    this.$playSong$ = muzikService.playSong$.subscribe(() => this.play());
+    this.$pauseSong$ = muzikService.pauseSong$.subscribe(() => this.pause());
+  }
+
   private audioElement?: HTMLAudioElement;
   private seekerElement?: HTMLInputElement;
   private volumeElement?: HTMLInputElement;
@@ -36,6 +43,9 @@ export class PlayerComponent implements AfterViewInit, OnDestroy, OnChanges {
   AUDIO_STATE: 'PLAYING' | 'PAUSED' | 'LOADING' = 'PAUSED';
   VOLUME_STATE: 'VOLUBLE' | 'MUTE' = 'VOLUBLE';
 
+  $playSong$: Subscription;
+  $pauseSong$: Subscription;
+
   CurrentTimeInterval?: NodeJS.Timeout;
 
   audioCurrentTime?: number | string = 0;
@@ -45,6 +55,7 @@ export class PlayerComponent implements AfterViewInit, OnDestroy, OnChanges {
   private play(): void {
     this.audioElement?.play().then(() => {
       this.AUDIO_STATE = 'PLAYING';
+      this.muzikService.muteSlider$.emit();
 
       this.CurrentTimeInterval = setInterval(() => {
         if (this.seekerElement && this.audioElement)
@@ -143,5 +154,7 @@ export class PlayerComponent implements AfterViewInit, OnDestroy, OnChanges {
 
   ngOnDestroy(): void {
     clearInterval(this.CurrentTimeInterval);
+    this.$playSong$?.unsubscribe();
+    this.$pauseSong$?.unsubscribe();
   }
 }
