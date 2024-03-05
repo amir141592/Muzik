@@ -6,10 +6,14 @@
     <!-- ? Song Play Button -->
     <div
       class="absolute w-full h-full flex justify-center items-center opacity-0 bg-slate-500/50 transition group-hover:opacity-100"
-      (click)="playSong()"
     >
       <i
-        class="isax isax-play5 flex justify-center items-center w-14 h-14 p-2 !text-3xl text-orange-600 border-2 border-orange-600 rounded-full"
+        class="isax isax-play5 flex justify-center items-center w-14 h-14 p-2 !text-3xl text-orange-600 border-2 border-orange-600 transition rounded-full hover:text-orange-700 hover:border-orange-700"
+        (click)="playSong()"
+      ></i>
+      <i
+        class="isax isax-music-filter !text-xl absolute bottom-3 right-3 text-sky-400 transition hover:text-sky-500"
+        (click)="addSongToList()"
       ></i>
     </div>
     @if (song.parentalAdvisory) {
@@ -52,7 +56,7 @@
     @if (song.coArtists.length) {
     <!-- ? Co-Artists -->
     <span>
-      (ft. @for (coArtist of song.coArtists; track $index) {
+      ( ft. @for (coArtist of song.coArtists; track $index) {
       <span class="hover:underline">{{ coArtist }}</span> @if ($index <
       song.coArtists.length - 1) { <span>, </span> } } )
     </span>

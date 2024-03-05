@@ -95,6 +95,45 @@
     class="w-96 flex-none flex flex-col h-screen p-4 border-l border-slate-300"
   >
     <div class="w-full mb-8">
+      <div class="flex items-center w-full mb-6">
+        <i class="isax isax-music-filter mr-2 text-slate-500"></i>
+        <h1 class="text-slate-500 font-fira-sans">Playlist</h1>
+      </div>
+      <ul class="w-full">
+        @if (playList.length) {@for (song of playList; track 'id') {
+        <muzik-song-item [song]="song" [playingSong]="playingSong">
+          <div class="flex gap-2">
+            <button
+              class="text-orange-600 cursor-pointer font-medium transition hover:text-orange-700"
+              title="play"
+            >
+              <i
+                class="isax"
+                [class]="
+                  muzikService.PLAYING_SONG_STATE == 'PLAYING'
+                    ? 'isax-pause5'
+                    : 'isax-play5'
+                "
+                (click)="playOrPause(song)"
+              ></i>
+            </button>
+            <button
+              class="text-red-600 cursor-pointer font-medium transition hover:text-red-700"
+              title="remove from playlist"
+            >
+              <i class="isax isax-play-remove5"></i>
+            </button>
+          </div>
+        </muzik-song-item>
+        }} @else {
+        <h2 class="text-center text-slate-500">
+          Click <i class="isax isax-music-filter5 !text-base mx-1"></i> on a
+          song to add it to playlist
+        </h2>
+        }
+      </ul>
+    </div>
+    <div class="w-full mb-8">
       <div class="flex justify-between items-center w-full mb-6">
         <div class="flex items-center">
           <i class="isax isax-star mr-2 text-slate-500"></i>
@@ -108,74 +147,23 @@
       </div>
       <ul class="w-full">
         @for (song of favoriteSongs; track 'id') {
-        <li class="flex justify-between items-center mb-4 w-full">
-          <div class="flex">
-            <div class="w-16 h-16 rounded-lg overflow-hidden mr-2">
-              @if (song.image) {
-              <img
-                class="w-full h-auto"
-                [src]="song.image"
-                [alt]="song.title"
-              />
-              } @else { <i class="isax isax-audio-square"></i> }
-            </div>
-            <div class="flex flex-col justify-center">
-              <h1 class="font-signika font-medium text-slate-800">
-                {{ song.title }}
-              </h1>
-              <h2
-                class="font-signika text-slate-500 hover:underline cursor-pointer"
-              >
-                {{ song.artist }}
-              </h2>
-            </div>
+        <muzik-song-item [song]="song">
+          <div class="flex gap-2">
+            <button
+              class="text-orange-600 cursor-pointer font-medium transition hover:text-orange-700"
+              title="play"
+            >
+              <i class="isax isax-play5"></i>
+            </button>
+            <button
+              class="text-sky-600 cursor-pointer font-medium transition hover:text-sky-700"
+              title="add to playlist"
+              (click)="addSongToList(song)"
+            >
+              <i class="isax isax-music-filter5"></i>
+            </button>
           </div>
-          <button>
-            <i
-              class="isax isax-play5 text-orange-600 transition hover:text-orange-700"
-            ></i>
-          </button>
-        </li>
-        }
-      </ul>
-    </div>
-    <div class="w-full mb-8">
-      <div class="flex justify-between items-center w-full mb-6">
-        <div class="flex items-center">
-          <i class="isax isax-people mr-2 text-slate-500"></i>
-          <h1 class="text-slate-500 font-fira-sans">Favorite Artists</h1>
-        </div>
-        <button
-          class="text-orange-600 cursor-pointer font-medium transition hover:text-orange-700"
-        >
-          See All
-        </button>
-      </div>
-      <ul class="w-full">
-        @for (artist of favoriteArtists; track 'id') {
-        <li class="flex justify-between items-center mb-4 w-full">
-          <div class="flex">
-            <div class="w-16 h-16 rounded-lg overflow-hidden mr-2">
-              @if (artist.image) {
-              <img
-                class="w-full h-auto"
-                [src]="artist.image"
-                [alt]="artist.artisticName"
-              />
-              } @else { <i class="isax isax-profile-circle"></i> }
-            </div>
-            <div class="flex items-center">
-              <h1 class="font-signika font-medium text-slate-800 capitalize">
-                {{ artist.artisticName }}
-              </h1>
-            </div>
-          </div>
-          <button>
-            <i
-              class="isax isax-play5 text-orange-600 transition hover:text-orange-700"
-            ></i>
-          </button>
-        </li>
+        </muzik-song-item>
         }
       </ul>
     </div>

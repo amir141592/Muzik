@@ -4,13 +4,13 @@ import { TitleCasePipe } from '@angular/common';
 import { MuzikService } from '../services/muzik.service';
 
 @Component({
-  selector: 'muzik-song',
+  selector: 'muzik-song-card',
   standalone: true,
   imports: [TitleCasePipe],
-  templateUrl: './song.component.html',
-  styleUrl: './song.component.scss',
+  templateUrl: './song-card.component.html',
+  styleUrl: './song-card.component.scss',
 })
-export class SongComponent {
+export class SongCardComponent {
   constructor(private readonly muzikService: MuzikService) {}
 
   @Input({ required: true }) song: Song = {
@@ -25,7 +25,11 @@ export class SongComponent {
     file: '',
   };
 
-  playSong() {
+  playSong(): void {
     this.muzikService.setPlayingSong$.emit(this.song);
+  }
+
+  addSongToList(): void {
+    this.muzikService.addSongToList$.emit(this.song);
   }
 }

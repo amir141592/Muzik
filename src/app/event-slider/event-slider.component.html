@@ -3,14 +3,20 @@
 >
   @if (currentEvent.type == 'VIDEO') {
   <video
+    #VIDEO_PLAYER
     id="videoPlayer"
     class="absolute aspect-[32/9] object-cover object-center"
     autoplay
     [volume]="0"
     [src]="currentEvent.file"
+    (ended)="next()"
   ></video>
   } @else if (currentEvent.type == 'IMAGE') {
-  <img [src]="currentEvent.file" [alt]="currentEvent.title" />
+  <img
+    class="absolute aspect-[32/9] object-cover object-center"
+    [src]="currentEvent.file"
+    [alt]="currentEvent.title"
+  />
   }
   <div
     class="w-full h-full absolute"
@@ -34,11 +40,12 @@
     {{ currentEvent.buttonTitle }}
   </button>
   }
-  <div class="absolute bottom-6 left-6 flex items-center">
+  <div class="group absolute bottom-4 left-4 p-2 flex items-center">
     @for (event of events; track $index) {
     <span
-      class="w-4 h-0.5 mr-2 rounded-full"
+      class="w-4 h-0.5 mr-2 rounded-full transition-all cursor-pointer group-hover:h-2 hover:bg-orange-600"
       [class]="currentEventIndex == $index ? 'bg-slate-200' : 'bg-slate-500'"
+      (click)="slide($index)"
     ></span>
     }
   </div>

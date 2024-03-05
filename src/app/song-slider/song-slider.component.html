@@ -11,7 +11,7 @@
   <!-- ? Song List -->
   <div class="flex items-center gap-10 overflow-x-auto">
     @for (song of songs; track song.id) {
-    <muzik-song [song]="song"></muzik-song> } @empty {
+    <muzik-song-card [song]="song"></muzik-song-card> } @empty {
     <p>No song is available!</p>
     }
   </div>

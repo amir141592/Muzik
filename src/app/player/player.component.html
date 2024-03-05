@@ -1,6 +1,7 @@
 <div class="w-full bg-slate-50 relative flex justify-between p-4 pt-8">
   <!-- ? Audio Element -->
   <audio
+    #AUDIO_PLAYER
     id="audio-player"
     class="invisible"
     [src]="playingSong.file"
@@ -8,9 +9,9 @@
     (loadeddata)="loadedSong()"
     (ended)="endedSong()"
   ></audio>
-  <!-- TODO show current time and song duration -->
   <!-- ? Audio Seeker -->
   <input
+    #SEEKER
     type="range"
     name="seeker"
     id="seeker"
@@ -93,7 +94,7 @@
         [class.animation-rotate]="AUDIO_STATE == 'LOADING'"
       ></i>
     </button>
-    <button>
+    <button (click)="nextSong()">
       <i class="isax isax-next transition hover:text-orange-600"></i>
     </button>
     <button>
@@ -114,6 +115,7 @@
       (click)="toggleVolume()"
     ></i>
     <input
+      #VOLUME
       type="range"
       name="volume"
       id="volume"

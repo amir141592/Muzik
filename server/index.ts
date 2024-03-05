@@ -1,13 +1,17 @@
 import { Elysia } from 'elysia';
+import { cors } from '@elysiajs/cors';
 
 import { mongooseConnection } from './databases/mongodb.database';
 
-mongooseConnection
-  .then(() => {
+try {
+  if (await mongooseConnection) {
     console.log('connected to mongoDB');
 
-    const app = new Elysia()
-      .onError(({ error }) => console.log(error))
+    new Elysia()
+      .use(cors())
+      .onError(({ error }) =>
+        console.error(new Error('Ops! backend blew up', { cause: error }))
+      )
       .onStart(() =>
         console.log(`🦊 Elysia is running at http://localhost:3000`)
       )
@@ -201,8 +205,10 @@ mongooseConnection
         )
       )
       .listen(3000);
-  })
-  .catch((error) => console.error(error));
+  }
+} catch (error) {
+  console.error(error);
+}
 
 // newReleases: [
 //   {
