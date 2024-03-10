@@ -31,7 +31,6 @@ export class EventSliderComponent implements OnChanges, OnDestroy {
 
   @ViewChild('VIDEO_PLAYER') VIDEO_PLAYER?: ElementRef<HTMLVideoElement>;
 
-  // @Input({ required: true }) events!: MuzikEvent[];
   events = input.required<MuzikEvent[]>();
 
   VOLUME_STATE: 'VOLUBLE' | 'MUTE' = 'MUTE';
