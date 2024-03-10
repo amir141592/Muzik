@@ -84,7 +84,7 @@ export class EventSliderComponent implements OnChanges, OnDestroy {
   }
 
   next(): void {
-    if (this.currentEventIndex != this.events.length - 1)
+    if (this.currentEventIndex != this.events().length - 1)
       this.currentEvent = this.events()[++this.currentEventIndex];
     else this.currentEvent = this.events()[(this.currentEventIndex = 0)];
 
