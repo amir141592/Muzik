@@ -14,7 +14,7 @@
         {{ song.title }}
       </h1>
       <h2
-        class="font-signika w-full truncate capitalize text-sm text-slate-500 hover:underline cursor-pointer"
+        class="font-signika w-full truncate capitalize text-sm text-slate-500"
         [title]="
           song.artist +
             (song.coArtists.length
@@ -24,13 +24,13 @@
         [class]="song.id == playingSong?.id ? '!text-orange-600' : ''"
       >
         <!-- ? Main Artist -->
-        <span class="hover:underline">{{ song.artist }}</span>
+        <span class="cursor-pointer hover:underline">{{ song.artist }}</span>
         @if (song.coArtists.length) {
         <!-- ? Co-Artists -->
         <span>
           ( ft. @for (coArtist of song.coArtists; track $index) {
-          <span class="hover:underline">{{ coArtist }}</span> @if ($index <
-          song.coArtists.length - 1) { <span>, </span> } } )
+          <span class="cursor-pointer hover:underline">{{ coArtist }}</span> @if
+          ($index < song.coArtists.length - 1) { <span>, </span> } } )
         </span>
         }
       </h2>

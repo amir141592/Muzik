@@ -86,30 +86,40 @@
       ></muzik-song-slider>
     </div>
     <div class="sticky bottom-0 w-full z-10">
-      @if (playingSong) {
-      <muzik-player [playingSong]="playingSong"></muzik-player>
+      @if (muzikService.playingSong) {
+      <muzik-player></muzik-player>
       }
     </div>
   </div>
   <div
     class="w-96 flex-none flex flex-col h-screen p-4 border-l border-slate-300"
   >
-    <div class="w-full mb-8">
+    <div
+      class="w-full overflow-y-auto mb-8"
+      style="max-height: calc(50% - 16px)"
+    >
       <div class="flex items-center w-full mb-6">
         <i class="isax isax-music-filter mr-2 text-slate-500"></i>
         <h1 class="text-slate-500 font-fira-sans">Playlist</h1>
       </div>
       <ul class="w-full">
-        @if (playList.length) {@for (song of playList; track 'id') {
-        <muzik-song-item [song]="song" [playingSong]="playingSong">
+        @if (muzikService.playList.length) {@for (song of muzikService.playList;
+        track 'id') {
+        <muzik-song-item [song]="song" [playingSong]="muzikService.playingSong">
           <div class="flex gap-2">
             <button
               class="text-orange-600 cursor-pointer font-medium transition hover:text-orange-700"
-              title="play"
+              [title]="
+                muzikService.playingSong?.id == song.id &&
+                muzikService.PLAYING_SONG_STATE == 'PLAYING'
+                  ? 'pause'
+                  : 'play'
+              "
             >
               <i
                 class="isax"
                 [class]="
+                  muzikService.playingSong?.id == song.id &&
                   muzikService.PLAYING_SONG_STATE == 'PLAYING'
                     ? 'isax-pause5'
                     : 'isax-play5'
@@ -120,8 +130,9 @@
             <button
               class="text-red-600 cursor-pointer font-medium transition hover:text-red-700"
               title="remove from playlist"
+              (click)="removeSongFromList(song)"
             >
-              <i class="isax isax-trash"></i>
+              <i class="isax isax-close-square5"></i>
             </button>
           </div>
         </muzik-song-item>
@@ -133,7 +144,7 @@
         }
       </ul>
     </div>
-    <div class="w-full mb-8">
+    <div class="w-full overflow-y-auto" style="max-height: calc(50% - 16px)">
       <div class="flex justify-between items-center w-full mb-6">
         <div class="flex items-center">
           <i class="isax isax-star mr-2 text-slate-500"></i>
@@ -147,13 +158,27 @@
       </div>
       <ul class="w-full">
         @for (song of favoriteSongs; track 'id') {
-        <muzik-song-item [song]="song">
+        <muzik-song-item [song]="song" [playingSong]="muzikService.playingSong">
           <div class="flex gap-2">
             <button
               class="text-orange-600 cursor-pointer font-medium transition hover:text-orange-700"
-              title="play"
+              [title]="
+                muzikService.playingSong?.id == song.id &&
+                muzikService.PLAYING_SONG_STATE == 'PLAYING'
+                  ? 'pause'
+                  : 'play'
+              "
             >
-              <i class="isax isax-play5"></i>
+              <i
+                class="isax"
+                [class]="
+                  muzikService.playingSong?.id == song.id &&
+                  muzikService.PLAYING_SONG_STATE == 'PLAYING'
+                    ? 'isax-pause5'
+                    : 'isax-play5'
+                "
+                (click)="playOrPause(song)"
+              ></i>
             </button>
             <button
               class="text-sky-600 cursor-pointer font-medium transition hover:text-sky-700"

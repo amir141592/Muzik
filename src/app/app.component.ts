@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
@@ -7,11 +7,8 @@ import { SongSliderComponent } from './song-slider/song-slider.component';
 import { PlayerComponent } from './player/player.component';
 import { Song } from './interfaces/song.interface';
 import { MuzikService } from './services/muzik.service';
-import { AuthenticationService } from './services/authentication.service';
 import { MuzikEvent } from './interfaces/muzik-event.interface';
 import { SongItemComponent } from './song-item/song-item.component';
-import { Subscription, defer, from } from 'rxjs';
-import { MuzikButton } from './interfaces/muzik-button.interface';
 
 @Component({
   selector: 'muzik-root',
@@ -28,11 +25,8 @@ import { MuzikButton } from './interfaces/muzik-button.interface';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnDestroy {
-  constructor(
-    private readonly authService: AuthenticationService,
-    public readonly muzikService: MuzikService
-  ) {
+export class AppComponent {
+  constructor(public readonly muzikService: MuzikService) {
     this.muzikService
       .getHomeRecommendedSongs()
       .subscribe((songs) => (this.homeRecommendedSongs = songs));
@@ -41,23 +35,6 @@ export class AppComponent implements OnDestroy {
       .getHomeTopTracksSongs()
       .subscribe((songs) => (this.homeTopTracksSongs = songs));
   }
-
-  $setPlayingSong$ = this.muzikService.setPlayingSong$.subscribe((value) => {
-    this.playingSong = value;
-    this.playList.unshift(value);
-  });
-
-  $addSongToList$ = this.muzikService.addSongToList$.subscribe((value) =>
-    this.playList.push(value)
-  );
-
-  $nextSong$ = this.muzikService.nextSong$.subscribe(
-    () =>
-      (this.playingSong =
-        this.playList[
-          this.playList.findIndex((song) => song.id == this.playingSong?.id) + 1
-        ])
-  );
 
   homeRecommendedSongs: Song[] = [];
   homeTopTracksSongs: Song[] = [];
@@ -68,6 +45,8 @@ export class AppComponent implements OnDestroy {
       title: 'concerts next month',
       description: "Don't miss your favorite artist's concert",
       file: 'http://localhost:3000/video/mohsen-yeganeh_behet-ghol-midam.mp4',
+      buttonTitle: 'see concerts list',
+      buttonAction: () => console.log('button click'),
     },
     {
       id: '2',
@@ -78,10 +57,6 @@ export class AppComponent implements OnDestroy {
       time: 5000,
     },
   ];
-
-  playingSong?: Song;
-
-  playList: Song[] = [];
 
   favoriteSongs: Song[] = [
     {
@@ -131,15 +106,19 @@ export class AppComponent implements OnDestroy {
   ];
 
   addSongToList(song: Song): void {
-    this.playList.push(song);
+    this.muzikService.addSongToList$.emit(song);
   }
 
   playOrPause(song: Song): void {
-    if (song.id == this.playingSong?.id) this.muzikService.pauseSong$.emit();
-    else this.muzikService.playSong$.emit();
+    if (this.muzikService.playingSong?.id == song.id) {
+      if (this.muzikService.PLAYING_SONG_STATE == 'PLAYING')
+        this.muzikService.pauseSong$.emit();
+      else if (this.muzikService.PLAYING_SONG_STATE == 'PAUSED')
+        this.muzikService.playSong$.emit();
+    } else this.muzikService.setPlayingSong$.emit(song);
   }
 
-  ngOnDestroy(): void {
-    this.$setPlayingSong$.unsubscribe();
+  removeSongFromList(song: Song): void {
+    this.muzikService.removeSongFromList$.emit(song);
   }
 }

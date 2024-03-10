@@ -1,18 +1,44 @@
-import { EventEmitter, Inject, Injectable } from '@angular/core';
+import { EventEmitter, Inject, Injectable, OnDestroy } from '@angular/core';
 import { Song } from '../interfaces/song.interface';
 import { HttpClient } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class MuzikService {
+export class MuzikService implements OnDestroy {
   constructor(
     @Inject('BACKEND_URL') private readonly BACKEND_URL: string,
     private readonly http: HttpClient
-  ) {}
+  ) {
+    this.subs.push(
+      ...[
+        this.setPlayingSong$.subscribe((value) => {
+          this.playingSong = value;
+          if (!this.playList.find((song) => song.id == value.id))
+            this.playList.push(value);
+        }),
+        this.addSongToList$.subscribe((value) => {
+          if (!this.playList.find((song) => song.id == value.id))
+            this.playList.push(value);
+        }),
+        this.removeSongFromList$.subscribe((value) => {
+          this.playList.splice(
+            this.playList.findIndex((song) => song.id == value.id),
+            1
+          );
+
+          if (this.playList.length) {
+            if (this.playingSong?.id == value.id) this.nextSong$.emit();
+          } else this.playingSong = null;
+        }),
+      ]
+    );
+  }
 
   setPlayingSong$ = new EventEmitter<Song>(false);
   addSongToList$ = new EventEmitter<Song>(false);
+  removeSongFromList$ = new EventEmitter<Song>(false);
   playSong$ = new EventEmitter<void>(false);
   pauseSong$ = new EventEmitter<void>(false);
   nextSong$ = new EventEmitter<void>(false);
@@ -23,7 +49,13 @@ export class MuzikService {
 
   PLAYING_SONG_STATE: 'PLAYING' | 'PAUSED' | 'LOADING' = 'PAUSED';
 
-  // TODO combine events playSong & nextSong & previousSong & setPlayingSong to chnage PLAYING_SONG_STATE
+  subs: Subscription[] = [];
+
+  playingSong?: Song | null;
+
+  playList: Song[] = [];
+
+  // TODO combine events playSong & nextSong & previousSong & setPlayingSong to change PLAYING_SONG_STATE
 
   getHomeRecommendedSongs() {
     return this.http.get<Song[]>(this.BACKEND_URL + '/muziks/home/recommended');
@@ -31,5 +63,9 @@ export class MuzikService {
 
   getHomeTopTracksSongs() {
     return this.http.get<Song[]>(this.BACKEND_URL + '/muziks/home/top-tracks');
+  }
+
+  ngOnDestroy(): void {
+    for (const sub of this.subs) sub.unsubscribe();
   }
 }

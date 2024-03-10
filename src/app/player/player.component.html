@@ -78,20 +78,20 @@
     <button>
       <i class="isax isax-shuffle transition hover:text-orange-600"></i>
     </button>
-    <button>
+    <button (click)="previousSong()">
       <i class="isax isax-previous transition hover:text-orange-600"></i>
     </button>
     <button (click)="togglePlay()">
       <i
         class="isax p-2 transition rounded-full bg-orange-600 text-slate-50 hover:bg-orange-700"
         [class]="
-          AUDIO_STATE == 'PLAYING'
+          muzikService.PLAYING_SONG_STATE == 'PLAYING'
             ? 'isax-pause5'
-            : AUDIO_STATE == 'PAUSED'
+            : muzikService.PLAYING_SONG_STATE == 'PAUSED'
             ? 'isax-play5'
             : 'isax-timer5'
         "
-        [class.animation-rotate]="AUDIO_STATE == 'LOADING'"
+        [class.animation-rotate]="muzikService.PLAYING_SONG_STATE == 'LOADING'"
       ></i>
     </button>
     <button (click)="nextSong()">

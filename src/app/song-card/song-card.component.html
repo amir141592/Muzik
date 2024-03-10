@@ -1,4 +1,4 @@
-<div class="w-44 cursor-pointer">
+<div class="w-44">
   <!-- ? Song Cover -->
   <div
     class="group w-44 h-44 relative rounded-lg overflow-hidden mb-2 flex justify-center items-center"
@@ -8,11 +8,11 @@
       class="absolute w-full h-full flex justify-center items-center opacity-0 bg-slate-500/50 transition group-hover:opacity-100"
     >
       <i
-        class="isax isax-play5 flex justify-center items-center w-14 h-14 p-2 !text-3xl text-orange-600 border-2 border-orange-600 transition rounded-full hover:text-orange-700 hover:border-orange-700"
+        class="isax isax-play5 flex justify-center items-center w-14 h-14 p-2 cursor-pointer !text-3xl text-orange-600 border-2 border-orange-600 transition rounded-full hover:text-orange-700 hover:border-orange-700"
         (click)="playSong()"
       ></i>
       <i
-        class="isax isax-music-filter !text-xl absolute bottom-3 right-3 text-sky-400 transition hover:text-sky-500"
+        class="isax isax-music-filter !text-xl absolute bottom-3 right-3 cursor-pointer text-sky-400 transition hover:text-sky-500"
         (click)="addSongToList()"
       ></i>
     </div>
@@ -52,13 +52,13 @@
     "
   >
     <!-- ? Main Artist -->
-    <span class="hover:underline">{{ song.artist }}</span>
+    <span class="cursor-pointer hover:underline">{{ song.artist }}</span>
     @if (song.coArtists.length) {
     <!-- ? Co-Artists -->
     <span>
       ( ft. @for (coArtist of song.coArtists; track $index) {
-      <span class="hover:underline">{{ coArtist }}</span> @if ($index <
-      song.coArtists.length - 1) { <span>, </span> } } )
+      <span class="cursor-pointer hover:underline">{{ coArtist }}</span> @if
+      ($index < song.coArtists.length - 1) { <span>, </span> } } )
     </span>
     }
   </h2>

@@ -1,7 +1,6 @@
 import {
   Component,
   ElementRef,
-  Input,
   OnChanges,
   OnDestroy,
   ViewChild,
@@ -10,7 +9,7 @@ import { TitleCasePipe } from '@angular/common';
 import { Song } from '../interfaces/song.interface';
 import { TimePipe } from '../pipes/time.pipe';
 import { MuzikService } from '../services/muzik.service';
-import { Subscription, interval } from 'rxjs';
+import { Subscription, interval, merge } from 'rxjs';
 
 @Component({
   selector: 'muzik-player',
@@ -20,11 +19,19 @@ import { Subscription, interval } from 'rxjs';
   styleUrl: './player.component.scss',
 })
 export class PlayerComponent implements OnChanges, OnDestroy {
-  constructor(private readonly muzikService: MuzikService) {
+  constructor(public muzikService: MuzikService) {
     this.$subs$.push(
       ...[
         muzikService.playSong$.subscribe(() => this.play()),
         muzikService.pauseSong$.subscribe(() => this.pause()),
+        merge(
+          muzikService.setPlayingSong$,
+          muzikService.nextSong$,
+          muzikService.previousSong$
+        ).subscribe(() => {
+          if (muzikService.playingSong)
+            this.playingSong = muzikService.playingSong;
+        }),
       ]
     );
   }
@@ -38,9 +45,18 @@ export class PlayerComponent implements OnChanges, OnDestroy {
   @ViewChild('VOLUME', { static: true })
   volumeElement?: ElementRef<HTMLInputElement>;
 
-  @Input({ required: true }) playingSong!: Song;
+  playingSong: Song = this.muzikService.playingSong ?? {
+    id: '1',
+    type: 'ALBUM',
+    parentalAdvisory: false,
+    title: '',
+    artist: '',
+    coArtists: [],
+    album: '',
+    image: '',
+    file: '',
+  };
 
-  AUDIO_STATE: 'PLAYING' | 'PAUSED' | 'LOADING' = 'PAUSED';
   VOLUME_STATE: 'VOLUBLE' | 'MUTE' = 'VOLUBLE';
 
   $subs$: Subscription[] = [];
@@ -52,7 +68,7 @@ export class PlayerComponent implements OnChanges, OnDestroy {
 
   private play(): void {
     this.audioElement?.nativeElement.play().then(() => {
-      this.AUDIO_STATE = 'PLAYING';
+      this.muzikService.PLAYING_SONG_STATE = 'PLAYING';
       this.muzikService.muteSlider$.emit();
 
       this.$currentTime$ = interval(10).subscribe(() => {
@@ -66,15 +82,38 @@ export class PlayerComponent implements OnChanges, OnDestroy {
   private pause(): void {
     this.audioElement?.nativeElement.pause();
     this.$currentTime$?.unsubscribe();
-    this.AUDIO_STATE = 'PAUSED';
+    this.muzikService.PLAYING_SONG_STATE = 'PAUSED';
   }
 
   nextSong(): void {
-    this.muzikService.nextSong$.emit();
+    const indexNextSong = this.muzikService.playList.findIndex(
+      (song) => song.id == this.playingSong?.id
+    );
+
+    if (indexNextSong != this.muzikService.playList.length - 1)
+      this.muzikService.setPlayingSong$.emit(
+        this.muzikService.playList[indexNextSong + 1]
+      );
+    else this.muzikService.setPlayingSong$.emit(this.muzikService.playList[0]);
+  }
+
+  previousSong(): void {
+    const indexPreviousSong = this.muzikService.playList.findIndex(
+      (song) => song.id == this.playingSong?.id
+    );
+
+    if (indexPreviousSong != 0)
+      this.muzikService.setPlayingSong$.emit(
+        this.muzikService.playList[indexPreviousSong - 1]
+      );
+    else
+      this.muzikService.setPlayingSong$.emit(
+        this.muzikService.playList[this.muzikService.playList.length - 1]
+      );
   }
 
   loadingSong() {
-    this.AUDIO_STATE = 'LOADING';
+    this.muzikService.PLAYING_SONG_STATE = 'LOADING';
   }
 
   loadedSong(): void {
@@ -93,14 +132,14 @@ export class PlayerComponent implements OnChanges, OnDestroy {
     if (this.seekerElement && this.audioElement) {
       this.seekerElement.nativeElement.value = '0';
       this.audioElement.nativeElement.currentTime = 0;
-      this.AUDIO_STATE = 'PAUSED';
-      this.muzikService.nextSong$.emit();
+      this.muzikService.PLAYING_SONG_STATE = 'PAUSED';
+      this.nextSong();
     }
   }
 
   togglePlay(): void {
-    if (this.AUDIO_STATE == 'PLAYING') this.pause();
-    else if (this.AUDIO_STATE == 'PAUSED') this.play();
+    if (this.muzikService.PLAYING_SONG_STATE == 'PLAYING') this.pause();
+    else if (this.muzikService.PLAYING_SONG_STATE == 'PAUSED') this.play();
   }
 
   seek(): void {

@@ -1,7 +1,6 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Song } from '../interfaces/song.interface';
-import { MuzikButton } from '../interfaces/muzik-button.interface';
 
 @Component({
   selector: 'muzik-song-item',
@@ -12,5 +11,5 @@ import { MuzikButton } from '../interfaces/muzik-button.interface';
 })
 export class SongItemComponent {
   @Input({ required: true }) song!: Song;
-  @Input() playingSong?: Song;
+  @Input() playingSong?: Song | null;
 }
