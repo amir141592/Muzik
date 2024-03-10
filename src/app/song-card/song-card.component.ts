@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { Song } from '../interfaces/song.interface';
 import { TitleCasePipe } from '@angular/common';
 import { MuzikService } from '../services/muzik.service';
@@ -13,23 +13,25 @@ import { MuzikService } from '../services/muzik.service';
 export class SongCardComponent {
   constructor(private readonly muzikService: MuzikService) {}
 
-  @Input({ required: true }) song: Song = {
-    id: '',
-    type: 'SINGLE',
-    parentalAdvisory: false,
-    title: '',
-    artist: '',
-    coArtists: [],
-    album: '',
-    image: '',
-    file: '',
-  };
+  // @Input({ required: true }) song: Song = {
+  //   id: '',
+  //   type: 'SINGLE',
+  //   parentalAdvisory: false,
+  //   title: '',
+  //   artist: '',
+  //   coArtists: [],
+  //   album: '',
+  //   image: '',
+  //   file: '',
+  // };
+
+  song = input.required<Song>();
 
   playSong(): void {
-    this.muzikService.setPlayingSong$.emit(this.song);
+    this.muzikService.setPlayingSong$.emit(this.song());
   }
 
   addSongToList(): void {
-    this.muzikService.addSongToList$.emit(this.song);
+    this.muzikService.addSongToList$.emit(this.song());
   }
 }

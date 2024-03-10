@@ -16,7 +16,7 @@
         (click)="addSongToList()"
       ></i>
     </div>
-    @if (song.parentalAdvisory) {
+    @if (song().parentalAdvisory) {
     <!-- ? Song PA Mark -->
     <span class="absolute top-2 left-2 p-1 bg-orange-600/50 rounded">
       <p
@@ -26,39 +26,39 @@
         PA
       </p>
     </span>
-    } @if (song.image) {
+    } @if (song().image) {
     <!-- ? Song Image -->
-    <img class="w-full h-auto" [src]="song.image" [alt]="song.title" /> } @else
-    {
+    <img class="w-full h-auto" [src]="song().image" [alt]="song().title" /> }
+    @else {
     <!-- ? Song Icon -->
     <i class="isax isax-audio-square !text-4xl"></i> }
   </div>
   <!-- ? Song Title -->
   <h1
     class="font-signika w-full truncate font-medium text-slate-800 capitalize"
-    [title]="song.title"
+    [title]="song().title"
     (click)="playSong()"
   >
-    {{ song.title }}
+    {{ song().title }}
   </h1>
   <!-- ? Song Artists -->
   <h2
     class="font-signika w-full truncate text-sm text-slate-500 capitalize"
     [title]="
-      song.artist +
-        (song.coArtists.length
-          ? ' ' + '(ft. ' + song.coArtists.join(', ') + ' )'
+      song().artist +
+        (song().coArtists.length
+          ? ' ' + '(ft. ' + song().coArtists.join(', ') + ' )'
           : '') | titlecase
     "
   >
     <!-- ? Main Artist -->
-    <span class="cursor-pointer hover:underline">{{ song.artist }}</span>
-    @if (song.coArtists.length) {
+    <span class="cursor-pointer hover:underline">{{ song().artist }}</span>
+    @if (song().coArtists.length) {
     <!-- ? Co-Artists -->
     <span>
-      ( ft. @for (coArtist of song.coArtists; track $index) {
+      ( ft. @for (coArtist of song().coArtists; track $index) {
       <span class="cursor-pointer hover:underline">{{ coArtist }}</span> @if
-      ($index < song.coArtists.length - 1) { <span>, </span> } } )
+      ($index < song().coArtists.length - 1) { <span>, </span> } } )
     </span>
     }
   </h2>

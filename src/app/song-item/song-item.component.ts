@@ -1,5 +1,5 @@
 import { TitleCasePipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { Song } from '../interfaces/song.interface';
 
 @Component({
@@ -10,6 +10,9 @@ import { Song } from '../interfaces/song.interface';
   styleUrl: './song-item.component.scss',
 })
 export class SongItemComponent {
-  @Input({ required: true }) song!: Song;
-  @Input() playingSong?: Song | null;
+  // @Input({ required: true }) song!: Song;
+  // @Input() playingSong?: Song;
+
+  song = input.required<Song>();
+  playingSong = input<Song | null>();
 }

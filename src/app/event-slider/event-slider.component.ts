@@ -2,12 +2,12 @@ import {
   Component,
   ElementRef,
   Inject,
-  Input,
   OnChanges,
   OnDestroy,
   PLATFORM_ID,
   SimpleChanges,
   ViewChild,
+  input,
 } from '@angular/core';
 import { MuzikEvent } from '../interfaces/muzik-event.interface';
 import { MuzikService } from '../services/muzik.service';
@@ -31,7 +31,8 @@ export class EventSliderComponent implements OnChanges, OnDestroy {
 
   @ViewChild('VIDEO_PLAYER') VIDEO_PLAYER?: ElementRef<HTMLVideoElement>;
 
-  @Input({ required: true }) events!: MuzikEvent[];
+  // @Input({ required: true }) events!: MuzikEvent[];
+  events = input.required<MuzikEvent[]>();
 
   VOLUME_STATE: 'VOLUBLE' | 'MUTE' = 'MUTE';
 
@@ -84,8 +85,8 @@ export class EventSliderComponent implements OnChanges, OnDestroy {
 
   next(): void {
     if (this.currentEventIndex != this.events.length - 1)
-      this.currentEvent = this.events[++this.currentEventIndex];
-    else this.currentEvent = this.events[(this.currentEventIndex = 0)];
+      this.currentEvent = this.events()[++this.currentEventIndex];
+    else this.currentEvent = this.events()[(this.currentEventIndex = 0)];
 
     this.setNewTimer();
 
@@ -96,7 +97,7 @@ export class EventSliderComponent implements OnChanges, OnDestroy {
   }
 
   slide(index: number): void {
-    this.currentEvent = this.events[index];
+    this.currentEvent = this.events()[index];
     this.currentEventIndex = index;
     this.setNewTimer();
 

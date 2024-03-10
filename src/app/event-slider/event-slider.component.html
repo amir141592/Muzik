@@ -41,7 +41,7 @@
   </button>
   }
   <div class="group absolute bottom-4 left-4 p-2 flex items-center">
-    @for (event of events; track $index) {
+    @for (event of events(); track $index) {
     <span
       class="w-4 h-0.5 mr-2 rounded-full transition-all cursor-pointer group-hover:h-2 hover:bg-orange-600"
       [class]="currentEventIndex == $index ? 'bg-slate-200' : 'bg-slate-500'"

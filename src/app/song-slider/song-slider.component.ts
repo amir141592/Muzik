@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { SongCardComponent } from '../song-card/song-card.component';
 import { Song } from '../interfaces/song.interface';
 import { AsyncPipe } from '@angular/common';
@@ -11,6 +11,9 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './song-slider.component.scss',
 })
 export class SongSliderComponent {
-  @Input({ required: true }) title: string = '';
-  @Input({ required: true }) songs: Song[] = [];
+  // @Input({ required: true }) title!: string;
+  // @Input({ required: true }) songs!: Song[];
+
+  title = input.required<string>();
+  songs = input.required<Song[]>();
 }
