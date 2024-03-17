@@ -52,16 +52,3 @@
   outline: none;
   list-style: none;
 }
-
-.animation-rotate {
-  animation-name: animation-rotate;
-  animation-duration: 1200ms;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-}
-
-@keyframes animation-rotate {
-  0% { transform: rotateZ(0deg) }
-  50% { transform: rotateZ(180deg) }
-  100% { transform: rotateZ(360deg) }
-}

@@ -24,11 +24,9 @@ export class PlayerComponent implements OnChanges, OnDestroy {
       ...[
         muzikService.playSong$.subscribe(() => this.play()),
         muzikService.pauseSong$.subscribe(() => this.pause()),
-        merge(
-          muzikService.setPlayingSong$,
-          muzikService.nextSong$,
-          muzikService.previousSong$
-        ).subscribe(() => {
+        muzikService.nextSong$.subscribe(() => this.next()),
+        muzikService.previousSong$.subscribe(() => this.previous()),
+        muzikService.setPlayingSong$.subscribe(() => {
           if (muzikService.playingSong)
             this.playingSong = muzikService.playingSong;
         }),
@@ -85,7 +83,7 @@ export class PlayerComponent implements OnChanges, OnDestroy {
     this.muzikService.PLAYING_SONG_STATE = 'PAUSED';
   }
 
-  nextSong(): void {
+  next(): void {
     const indexNextSong = this.muzikService.playList.findIndex(
       (song) => song.id == this.playingSong?.id
     );
@@ -97,7 +95,7 @@ export class PlayerComponent implements OnChanges, OnDestroy {
     else this.muzikService.setPlayingSong$.emit(this.muzikService.playList[0]);
   }
 
-  previousSong(): void {
+  previous(): void {
     const indexPreviousSong = this.muzikService.playList.findIndex(
       (song) => song.id == this.playingSong?.id
     );
@@ -133,7 +131,7 @@ export class PlayerComponent implements OnChanges, OnDestroy {
       this.seekerElement.nativeElement.value = '0';
       this.audioElement.nativeElement.currentTime = 0;
       this.muzikService.PLAYING_SONG_STATE = 'PAUSED';
-      this.nextSong();
+      this.next();
     }
   }
 

@@ -1,7 +1,7 @@
 import { EventEmitter, Inject, Injectable, OnDestroy } from '@angular/core';
 import { Song } from '../interfaces/song.interface';
 import { HttpClient } from '@angular/common/http';
-import { Subscription } from 'rxjs';
+import { Subscription, merge } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +15,7 @@ export class MuzikService implements OnDestroy {
       ...[
         this.setPlayingSong$.subscribe((value) => {
           this.playingSong = value;
+
           if (!this.playList.find((song) => song.id == value.id))
             this.playList.push(value);
         }),
@@ -54,8 +55,6 @@ export class MuzikService implements OnDestroy {
   playingSong?: Song | null;
 
   playList: Song[] = [];
-
-  // TODO combine events playSong & nextSong & previousSong & setPlayingSong to change PLAYING_SONG_STATE
 
   getHomeRecommendedSongs() {
     return this.http.get<Song[]>(this.BACKEND_URL + '/muziks/home/recommended');

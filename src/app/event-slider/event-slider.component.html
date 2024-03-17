@@ -34,7 +34,7 @@
   </p>
   @if (currentEvent.buttonTitle) {
   <button
-    class="absolute top-24 left-4 py-2 px-4 rounded-full bg-orange-600 text-slate-50 cursor-pointer transition font-fira-sans hover:bg-orange-700"
+    class="absolute top-24 left-4 py-2 px-4 rounded-full bg-orange-600 text-slate-50 cursor-pointer transition font-fira-sans capitalize hover:bg-orange-700"
     (click)="currentEvent.buttonAction && currentEvent.buttonAction()"
   >
     {{ currentEvent.buttonTitle }}
