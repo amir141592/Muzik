@@ -9,7 +9,7 @@ import { TitleCasePipe } from '@angular/common';
 import { Song } from '../interfaces/song.interface';
 import { TimePipe } from '../pipes/time.pipe';
 import { MuzikService } from '../services/muzik.service';
-import { Subscription, interval, merge } from 'rxjs';
+import { Subscription, interval } from 'rxjs';
 
 @Component({
   selector: 'muzik-player',
