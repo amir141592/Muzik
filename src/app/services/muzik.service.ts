@@ -50,7 +50,8 @@ export class MuzikService implements OnDestroy {
 
   PLAYING_SONG_STATE: 'PLAYING' | 'PAUSED' | 'LOADING' = 'PAUSED';
   REPEATE_STATE: 'NO_LOOP' | 'LOOP_ALL' | 'LOOP_ONE' = 'NO_LOOP';
-  VOLUME_STATE: 'VOLUBLE' | 'MUTE' = 'VOLUBLE';
+
+  VOLUBLE = true;
 
   subs: Subscription[] = [];
 

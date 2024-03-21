@@ -182,14 +182,14 @@ export class PlayerComponent implements OnChanges, OnDestroy {
   }
 
   toggleVolume(): void {
-    if (this.muzikService.VOLUME_STATE == 'VOLUBLE') this.mute();
+    if (this.muzikService.VOLUBLE) this.mute();
     else this.unmute();
   }
 
   mute(): void {
     if (this.audioElement) {
       this.audioElement.nativeElement.volume = 0;
-      this.muzikService.VOLUME_STATE = 'MUTE';
+      this.muzikService.VOLUBLE = false;
     }
   }
 
@@ -204,7 +204,7 @@ export class PlayerComponent implements OnChanges, OnDestroy {
         this.volumeElement.nativeElement.value = '0.5';
       }
 
-      this.muzikService.VOLUME_STATE = 'VOLUBLE';
+      this.muzikService.VOLUBLE = true;
     }
   }
 
@@ -216,8 +216,8 @@ export class PlayerComponent implements OnChanges, OnDestroy {
       this.volume = Number(this.volumeElement.nativeElement.value);
 
       if (this.volumeElement.nativeElement.value == '0')
-        this.muzikService.VOLUME_STATE = 'MUTE';
-      else this.muzikService.VOLUME_STATE = 'VOLUBLE';
+        this.muzikService.VOLUBLE = false;
+      else this.muzikService.VOLUBLE = true;
     }
   }
 

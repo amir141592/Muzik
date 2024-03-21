@@ -76,7 +76,7 @@
     class="flex justify-between items-center gap-4 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
   >
     <button>
-      <i class="isax isax-shuffle transition hover:text-orange-600"></i>
+      <i class="isax isax-star transition hover:text-orange-600"></i>
     </button>
     <button (click)="previous()">
       <i class="isax isax-previous transition hover:text-orange-600"></i>
@@ -127,7 +127,7 @@
     <i
       class="isax mr-1 transition cursor-pointer hover:text-orange-600"
       [class]="
-        muzikService.VOLUME_STATE == 'VOLUBLE'
+        muzikService.VOLUBLE
           ? volume > 0.5
             ? 'isax-volume-high'
             : 'isax-volume-low'
