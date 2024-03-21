@@ -100,8 +100,26 @@
     <button (click)="next()">
       <i class="isax isax-next transition hover:text-orange-600"></i>
     </button>
-    <button>
-      <i class="isax isax-repeate-music transition hover:text-orange-600"></i>
+    <button
+      [title]="
+        muzikService.REPEATE_STATE == 'NO_LOOP'
+          ? 'no loop'
+          : muzikService.REPEATE_STATE == 'LOOP_ALL'
+          ? 'loop all playlist'
+          : 'loop playing song'
+      "
+      (click)="changeRepeat()"
+    >
+      <i
+        class="isax transition hover:text-orange-600"
+        [class]="
+          muzikService.REPEATE_STATE == 'NO_LOOP'
+            ? 'isax-arrow-right-1'
+            : muzikService.REPEATE_STATE == 'LOOP_ALL'
+            ? 'isax-repeate-music text-orange-600 hover:!text-orange-700'
+            : 'isax-repeate-one text-orange-600 hover:!text-orange-700'
+        "
+      ></i>
     </button>
   </div>
   <!-- ? Audio Volume Control -->
@@ -109,7 +127,7 @@
     <i
       class="isax mr-1 transition cursor-pointer hover:text-orange-600"
       [class]="
-        VOLUME_STATE == 'VOLUBLE'
+        muzikService.VOLUME_STATE == 'VOLUBLE'
           ? volume > 0.5
             ? 'isax-volume-high'
             : 'isax-volume-low'

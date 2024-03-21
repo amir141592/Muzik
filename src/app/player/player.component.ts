@@ -55,8 +55,6 @@ export class PlayerComponent implements OnChanges, OnDestroy {
     file: '',
   };
 
-  VOLUME_STATE: 'VOLUBLE' | 'MUTE' = 'VOLUBLE';
-
   $subs$: Subscription[] = [];
   $currentTime$?: Subscription;
 
@@ -110,6 +108,27 @@ export class PlayerComponent implements OnChanges, OnDestroy {
       );
   }
 
+  replayPlayingSong(): void {
+    this.seek(0);
+    this.play();
+  }
+
+  changeRepeat(): void {
+    switch (this.muzikService.REPEATE_STATE) {
+      case 'NO_LOOP':
+        this.muzikService.REPEATE_STATE = 'LOOP_ALL';
+        break;
+
+      case 'LOOP_ALL':
+        this.muzikService.REPEATE_STATE = 'LOOP_ONE';
+        break;
+
+      case 'LOOP_ONE':
+        this.muzikService.REPEATE_STATE = 'NO_LOOP';
+        break;
+    }
+  }
+
   loadingSong() {
     this.muzikService.PLAYING_SONG_STATE = 'LOADING';
   }
@@ -131,7 +150,18 @@ export class PlayerComponent implements OnChanges, OnDestroy {
       this.seekerElement.nativeElement.value = '0';
       this.audioElement.nativeElement.currentTime = 0;
       this.muzikService.PLAYING_SONG_STATE = 'PAUSED';
-      this.next();
+
+      if (
+        this.muzikService.REPEATE_STATE == 'NO_LOOP' &&
+        this.muzikService.playList.findIndex(
+          (song) => song.id == this.playingSong.id
+        ) !=
+          this.muzikService.playList.length - 1
+      )
+        this.next();
+      else if (this.muzikService.REPEATE_STATE == 'LOOP_ALL') this.next();
+      else if (this.muzikService.REPEATE_STATE == 'LOOP_ONE')
+        this.replayPlayingSong();
     }
   }
 
@@ -140,22 +170,26 @@ export class PlayerComponent implements OnChanges, OnDestroy {
     else if (this.muzikService.PLAYING_SONG_STATE == 'PAUSED') this.play();
   }
 
-  seek(): void {
-    if (this.seekerElement && this.audioElement)
+  seek(time?: number): void {
+    if (!time && this.seekerElement && this.audioElement)
       this.audioElement.nativeElement.currentTime = Number(
         this.seekerElement.nativeElement.value
+      );
+    else if (time && this.seekerElement && this.audioElement)
+      this.seekerElement.nativeElement.value = String(
+        (this.audioElement.nativeElement.currentTime = time)
       );
   }
 
   toggleVolume(): void {
-    if (this.VOLUME_STATE == 'VOLUBLE') this.mute();
+    if (this.muzikService.VOLUME_STATE == 'VOLUBLE') this.mute();
     else this.unmute();
   }
 
   mute(): void {
     if (this.audioElement) {
       this.audioElement.nativeElement.volume = 0;
-      this.VOLUME_STATE = 'MUTE';
+      this.muzikService.VOLUME_STATE = 'MUTE';
     }
   }
 
@@ -170,7 +204,7 @@ export class PlayerComponent implements OnChanges, OnDestroy {
         this.volumeElement.nativeElement.value = '0.5';
       }
 
-      this.VOLUME_STATE = 'VOLUBLE';
+      this.muzikService.VOLUME_STATE = 'VOLUBLE';
     }
   }
 
@@ -182,8 +216,8 @@ export class PlayerComponent implements OnChanges, OnDestroy {
       this.volume = Number(this.volumeElement.nativeElement.value);
 
       if (this.volumeElement.nativeElement.value == '0')
-        this.VOLUME_STATE = 'MUTE';
-      else this.VOLUME_STATE = 'VOLUBLE';
+        this.muzikService.VOLUME_STATE = 'MUTE';
+      else this.muzikService.VOLUME_STATE = 'VOLUBLE';
     }
   }
 
