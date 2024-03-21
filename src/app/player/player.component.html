@@ -19,6 +19,7 @@
     style="transform: translate(-16px, -4px); accent-color: rgb(234 88 12)"
     value="0"
     step="0.01"
+    title="change current time of song"
     (input)="seek()"
   />
   <!-- ? Audio Current Time -->
@@ -75,16 +76,26 @@
   <div
     class="flex justify-between items-center gap-4 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
   >
+    <!-- ? Favorite -->
     <button>
       <i class="isax isax-star transition hover:text-orange-600"></i>
     </button>
-    <button (click)="previous()">
+    <!-- ? Previous -->
+    <button title="play previous song" (click)="previous()">
       <i class="isax isax-previous transition hover:text-orange-600"></i>
     </button>
+    <!-- ? Play/Pause -->
     <button
       class="w-9 h-9 flex justify-center items-center transition rounded-full bg-orange-600 text-slate-50 hover:bg-orange-700"
-      (click)="togglePlay()"
       [class.animation-rotate]="muzikService.PLAYING_SONG_STATE == 'LOADING'"
+      [title]="
+        muzikService.PLAYING_SONG_STATE == 'PLAYING'
+          ? 'pause song'
+          : muzikService.PLAYING_SONG_STATE == 'PAUSED'
+          ? 'play song'
+          : 'loading song'
+      "
+      (click)="togglePlay()"
     >
       <i
         class="isax"
@@ -97,9 +108,11 @@
         "
       ></i>
     </button>
-    <button (click)="next()">
+    <!-- ? Next -->
+    <button title="play next song" (click)="next()">
       <i class="isax isax-next transition hover:text-orange-600"></i>
     </button>
+    <!-- ? Repeat -->
     <button
       [title]="
         muzikService.REPEATE_STATE == 'NO_LOOP'
@@ -124,6 +137,7 @@
   </div>
   <!-- ? Audio Volume Control -->
   <div class="flex items-center">
+    <!-- ? Mute/Unmute -->
     <i
       class="isax mr-1 transition cursor-pointer hover:text-orange-600"
       [class]="
@@ -133,8 +147,10 @@
             : 'isax-volume-low'
           : 'isax-volume-slash'
       "
+      [title]="muzikService.VOLUBLE ? 'mute' : 'unmute'"
       (click)="toggleVolume()"
     ></i>
+    <!-- ? Change Volume -->
     <input
       #VOLUME
       type="range"
@@ -145,6 +161,7 @@
       value="1"
       max="1"
       step="0.01"
+      title="change volume"
       (input)="changeVolume()"
     />
   </div>

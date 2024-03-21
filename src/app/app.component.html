@@ -1,10 +1,13 @@
 <div class="w-full h-screen flex bg-slate-50">
+  <!-- ? Left Section -->
   <div
     class="w-64 h-screen flex-none p-4 border-r border-slate-300 [&>ul]:mb-6 relative"
   >
+    <!-- ? Logo -->
     <h1 class="mb-12 font-fira-sans font-semibold text-3xl text-orange-600">
       MUZIK
     </h1>
+    <!-- ? Main Pages -->
     <ul
       class="*:flex *:items-center *:py-2 *:ml-4 *:font-signika *:cursor-pointer *:text-slate-700 *:transition [&>li>span]:transition [&>li>span]:mr-2 [&>li>span]:text-slate-700"
     >
@@ -21,6 +24,7 @@
         Podcast
       </li>
     </ul>
+    <!-- ? User Song Libraries -->
     <h2 class="mb-2 text-slate-600">My Library</h2>
     <ul
       class="*:flex *:items-center *:py-2 *:ml-4 *:font-signika *:cursor-pointer *:text-slate-700 *:transition [&>li>span]:transition [&>li>span]:mr-2 [&>li>span]:text-slate-700"
@@ -34,6 +38,7 @@
         Favorite Songs
       </li>
     </ul>
+    <!-- ? User Playlists -->
     <h2 class="mb-2 text-slate-600">Playlists</h2>
     <ul
       class="*:flex *:items-center *:py-2 *:ml-4 *:font-signika *:cursor-pointer *:text-slate-700 *:transition [&>li>span]:transition [&>li>span]:mr-2 [&>li>span]:text-slate-700"
@@ -55,15 +60,18 @@
         Chill
       </li>
     </ul>
+    <!-- ? User Mini Profile -->
     <div
       class="w-5/6 flex items-center absolute bottom-0 rounded-full p-2 mb-2 cursor-pointer bg-slate-100 group"
     >
+      <!-- ? User Photo -->
       <div
         class="w-8 h-8 flex justify-center items-center rounded-full overflow-hidden mr-2"
       >
         <!-- <img src="" alt="" /> -->
         <i class="isax isax-profile-circle"></i>
       </div>
+      <!-- ? User Name -->
       <p class="font-signika group-hover:text-orange-600 transition">
         Amir Allahdadian
       </p>
@@ -72,7 +80,9 @@
       ></i>
     </div>
   </div>
+  <!-- ? Middle Section -->
   <div class="flex-1 overflow-y-auto overflow-x-hidden relative">
+    <!-- ? Main Content -->
     <div class="p-4">
       <muzik-header></muzik-header>
       <muzik-event-slider [events]="sliderEvents"></muzik-event-slider>
@@ -85,23 +95,29 @@
         [songs]="homeTopTracksSongs"
       ></muzik-song-slider>
     </div>
+    <!-- ? Player -->
     <div class="sticky bottom-0 w-full z-10">
       @if (muzikService.playingSong) {
       <muzik-player></muzik-player>
       }
     </div>
   </div>
+  <!-- ? Right Section -->
   <div
     class="w-96 flex-none flex flex-col h-screen p-4 border-l border-slate-300"
   >
+    <!-- TODO make a list component -->
+    <!-- ? Playlist -->
     <div
       class="w-full overflow-y-auto mb-8"
       style="max-height: calc(50% - 16px)"
     >
+      <!-- ? Header -->
       <div class="flex items-center w-full mb-6">
         <i class="isax isax-music-filter mr-2 text-slate-500"></i>
         <h1 class="text-slate-500 font-fira-sans">Playlist</h1>
       </div>
+      <!-- ? List -->
       <ul class="w-full">
         @if (muzikService.playList.length) {@for (song of muzikService.playList;
         track 'id') {
@@ -144,7 +160,10 @@
         }
       </ul>
     </div>
+    <!-- TODO make a list component -->
+    <!-- ? Favorite Songs -->
     <div class="w-full overflow-y-auto" style="max-height: calc(50% - 16px)">
+      <!-- ? Header -->
       <div class="flex justify-between items-center w-full mb-6">
         <div class="flex items-center">
           <i class="isax isax-star mr-2 text-slate-500"></i>
@@ -156,6 +175,7 @@
           See All
         </button>
       </div>
+      <!-- ? List -->
       <ul class="w-full">
         @for (song of favoriteSongs; track 'id') {
         <muzik-song-item [song]="song" [playingSong]="muzikService.playingSong">
