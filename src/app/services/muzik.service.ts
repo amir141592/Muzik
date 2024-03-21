@@ -1,7 +1,7 @@
 import { EventEmitter, Inject, Injectable, OnDestroy } from '@angular/core';
 import { Song } from '../interfaces/song.interface';
 import { HttpClient } from '@angular/common/http';
-import { Subscription, merge } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
