@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { SongCardComponent } from '../song-card/song-card.component';
 import { Song } from '../interfaces/song.interface';
 import { AsyncPipe } from '@angular/common';
@@ -9,6 +9,7 @@ import { AsyncPipe } from '@angular/common';
   imports: [SongCardComponent, AsyncPipe],
   templateUrl: './song-slider.component.html',
   styleUrl: './song-slider.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SongSliderComponent {
   // @Input({ required: true }) title!: string;

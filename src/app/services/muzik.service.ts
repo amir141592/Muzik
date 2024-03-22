@@ -37,6 +37,7 @@ export class MuzikService implements OnDestroy {
     );
   }
 
+  // TODO see if you can replace event with signal
   setPlayingSong$ = new EventEmitter<Song>(false);
   addSongToList$ = new EventEmitter<Song>(false);
   removeSongFromList$ = new EventEmitter<Song>(false);
@@ -48,15 +49,20 @@ export class MuzikService implements OnDestroy {
   toggleShuffle$ = new EventEmitter<void>(false);
   muteSlider$ = new EventEmitter<void>(false);
 
+  // TODO make this property a signal
   PLAYING_SONG_STATE: 'PLAYING' | 'PAUSED' | 'LOADING' = 'PAUSED';
+  // TODO make this property a signal
   REPEATE_STATE: 'NO_LOOP' | 'LOOP_ALL' | 'LOOP_ONE' = 'NO_LOOP';
 
+  // TODO make this property a signal
   VOLUBLE = true;
 
   subs: Subscription[] = [];
 
+  // TODO make this property a signal
   playingSong?: Song | null;
 
+  // TODO make this property a signal
   playList: Song[] = [];
 
   getHomeRecommendedSongs() {

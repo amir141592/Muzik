@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   Inject,
@@ -20,6 +21,7 @@ import { isPlatformServer } from '@angular/common';
   imports: [],
   templateUrl: './event-slider.component.html',
   styleUrl: './event-slider.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EventSliderComponent implements OnChanges, OnDestroy {
   constructor(
@@ -38,6 +40,7 @@ export class EventSliderComponent implements OnChanges, OnDestroy {
   $muteSlider$: Subscription;
   $currentEventTimer$?: Subscription;
 
+  // TODO make this property a signal
   currentEvent: MuzikEvent = {
     id: '1',
     type: 'VIDEO',
@@ -55,11 +58,6 @@ export class EventSliderComponent implements OnChanges, OnDestroy {
       this.$currentEventTimer$ = timer(this.currentEvent.time).subscribe(() =>
         this.next()
       );
-
-    // if (this.currentEvent.time)
-    //   this.$currentEventTimer$ = timer(this.currentEvent.time).subscribe(() =>
-    //     this.next()
-    //   );
   }
 
   toggleVolume(): void {

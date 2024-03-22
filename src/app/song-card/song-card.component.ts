@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { Song } from '../interfaces/song.interface';
 import { TitleCasePipe } from '@angular/common';
 import { MuzikService } from '../services/muzik.service';
@@ -9,6 +9,7 @@ import { MuzikService } from '../services/muzik.service';
   imports: [TitleCasePipe],
   templateUrl: './song-card.component.html',
   styleUrl: './song-card.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SongCardComponent {
   constructor(private readonly muzikService: MuzikService) {}

@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   OnChanges,
@@ -17,6 +18,7 @@ import { Subscription, interval } from 'rxjs';
   imports: [TitleCasePipe, TimePipe],
   templateUrl: './player.component.html',
   styleUrl: './player.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlayerComponent implements OnChanges, OnDestroy {
   constructor(public muzikService: MuzikService) {
