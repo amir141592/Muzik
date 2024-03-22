@@ -37,11 +37,11 @@
   <p class="absolute top-14 left-4 text-slate-400 font-signika">
     {{ currentEvent().description }}
   </p>
-  @if (currentEvent().buttonTitle) {
+  @if (currentEvent().buttonTitle && currentEvent().buttonAction) {
   <!-- ? CTA Button -->
   <button
     class="absolute top-24 left-4 py-2 px-4 rounded-full bg-orange-600 text-slate-50 cursor-pointer transition font-fira-sans capitalize hover:bg-orange-700"
-    (click)="currentEvent()?.buttonAction()"
+    (click)="currentEvent().buttonAction!()"
   >
     {{ currentEvent().buttonTitle }}
   </button>
