@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  WritableSignal,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
@@ -30,15 +35,15 @@ export class AppComponent {
   constructor(public readonly muzikService: MuzikService) {
     this.muzikService
       .getHomeRecommendedSongs()
-      .subscribe((songs) => (this.homeRecommendedSongs = songs));
+      .subscribe((songs) => this.homeRecommendedSongs.set(songs));
 
     this.muzikService
       .getHomeTopTracksSongs()
-      .subscribe((songs) => (this.homeTopTracksSongs = songs));
+      .subscribe((songs) => this.homeTopTracksSongs.set(songs));
   }
 
-  homeRecommendedSongs: Song[] = [];
-  homeTopTracksSongs: Song[] = [];
+  homeRecommendedSongs: WritableSignal<Song[]> = signal([]);
+  homeTopTracksSongs: WritableSignal<Song[]> = signal([]);
   sliderEvents: MuzikEvent[] = [
     {
       id: '1',

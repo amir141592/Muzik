@@ -88,11 +88,11 @@
       <muzik-event-slider [events]="sliderEvents"></muzik-event-slider>
       <muzik-song-slider
         [title]="'New Releases'"
-        [songs]="homeRecommendedSongs"
+        [songs]="homeRecommendedSongs()"
       ></muzik-song-slider>
       <muzik-song-slider
         [title]="'Recommended For You'"
-        [songs]="homeTopTracksSongs"
+        [songs]="homeTopTracksSongs()"
       ></muzik-song-slider>
     </div>
     <!-- ? Player -->

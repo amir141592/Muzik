@@ -24,11 +24,11 @@
   />
   <!-- ? Audio Current Time -->
   <span class="absolute top-2 left-2 text-slate-500 text-xs">{{
-    audioCurrentTime | time
+    muzikService.audioCurrentTime() | time
   }}</span>
   <!-- ? Audio Duration -->
   <span class="absolute top-2 right-2 text-slate-500 text-xs">{{
-    audioDuration | time
+    muzikService.audioDuration() | time
   }}</span>
   <!-- ? Song Info -->
   <div class="flex">
@@ -147,7 +147,7 @@
       class="isax mr-1 transition cursor-pointer hover:text-orange-600"
       [class]="
         muzikService.VOLUBLE()
-          ? volume > 0.5
+          ? muzikService.volume() > 0.5
             ? 'isax-volume-high'
             : 'isax-volume-low'
           : 'isax-volume-slash'

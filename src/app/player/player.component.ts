@@ -42,19 +42,21 @@ export class PlayerComponent implements OnDestroy {
   $subs$: Subscription[] = [];
   $currentTime$?: Subscription;
 
-  audioCurrentTime?: number | string = 0;
-  audioDuration: number = 0;
-  volume: number = 1;
-
   private play(): void {
     this.audioElement?.nativeElement.play().then(() => {
       this.muzikService.PLAYING_SONG_STATE.set('PLAYING');
       this.muzikService.muteSlider$.emit();
 
       this.$currentTime$ = interval(10).subscribe(() => {
-        if (this.seekerElement && this.audioElement)
-          this.audioCurrentTime = this.seekerElement.nativeElement.value =
-            String(this.audioElement.nativeElement.currentTime);
+        if (this.seekerElement && this.audioElement) {
+          this.muzikService.audioCurrentTime.set(
+            this.audioElement.nativeElement.currentTime
+          );
+
+          this.seekerElement.nativeElement.value = String(
+            this.audioElement.nativeElement.currentTime
+          );
+        }
       });
     });
   }
@@ -124,7 +126,9 @@ export class PlayerComponent implements OnDestroy {
       this.seekerElement.nativeElement.max = String(
         this.audioElement.nativeElement.duration
       );
-      this.audioDuration = this.audioElement.nativeElement.duration;
+      this.muzikService.audioDuration.set(
+        this.audioElement.nativeElement.duration
+      );
       this.$currentTime$?.unsubscribe();
       this.play();
     }
@@ -200,7 +204,9 @@ export class PlayerComponent implements OnDestroy {
       this.audioElement.nativeElement.volume = Number(
         this.volumeElement.nativeElement.value
       );
-      this.volume = Number(this.volumeElement.nativeElement.value);
+      this.muzikService.volume.set(
+        Number(this.volumeElement.nativeElement.value)
+      );
 
       if (this.volumeElement.nativeElement.value == '0')
         this.muzikService.VOLUBLE.set(false);

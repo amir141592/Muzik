@@ -12,9 +12,6 @@ import { AsyncPipe } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SongSliderComponent {
-  // @Input({ required: true }) title!: string;
-  // @Input({ required: true }) songs!: Song[];
-
   title = input.required<string>();
   songs = input.required<Song[]>();
 }

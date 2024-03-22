@@ -73,6 +73,10 @@ export class MuzikService implements OnDestroy {
 
   playList: WritableSignal<Song[]> = signal([]);
 
+  audioCurrentTime: WritableSignal<number | string> = signal(0);
+  audioDuration: WritableSignal<number> = signal(0);
+  volume: WritableSignal<number> = signal(1);
+
   getHomeRecommendedSongs() {
     return this.http.get<Song[]>(this.BACKEND_URL + '/muziks/home/recommended');
   }

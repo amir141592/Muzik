@@ -14,18 +14,6 @@ import { MuzikService } from '../services/muzik.service';
 export class SongCardComponent {
   constructor(private readonly muzikService: MuzikService) {}
 
-  // @Input({ required: true }) song: Song = {
-  //   id: '',
-  //   type: 'SINGLE',
-  //   parentalAdvisory: false,
-  //   title: '',
-  //   artist: '',
-  //   coArtists: [],
-  //   album: '',
-  //   image: '',
-  //   file: '',
-  // };
-
   song = input.required<Song>();
 
   playSong(): void {

@@ -11,9 +11,6 @@ import { Song } from '../interfaces/song.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SongItemComponent {
-  // @Input({ required: true }) song!: Song;
-  // @Input() playingSong?: Song;
-
   song = input.required<Song>();
   playingSong = input<Song | null>();
 }
