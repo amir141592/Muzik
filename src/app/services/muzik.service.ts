@@ -1,4 +1,11 @@
-import { EventEmitter, Inject, Injectable, OnDestroy } from '@angular/core';
+import {
+  EventEmitter,
+  Inject,
+  Injectable,
+  OnDestroy,
+  WritableSignal,
+  signal,
+} from '@angular/core';
 import { Song } from '../interfaces/song.interface';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
@@ -14,24 +21,28 @@ export class MuzikService implements OnDestroy {
     this.subs.push(
       ...[
         this.setPlayingSong$.subscribe((value) => {
-          this.playingSong = value;
+          this.playingSong.set(value);
 
-          if (!this.playList.find((song) => song.id == value.id))
-            this.playList.push(value);
+          if (!this.playList().find((song) => song.id == value.id))
+            this.playList.update((prevList) => [...prevList, value]);
         }),
         this.addSongToList$.subscribe((value) => {
-          if (!this.playList.find((song) => song.id == value.id))
-            this.playList.push(value);
+          if (!this.playList().find((song) => song.id == value.id))
+            this.playList.update((prevList) => [...prevList, value]);
         }),
         this.removeSongFromList$.subscribe((value) => {
-          this.playList.splice(
-            this.playList.findIndex((song) => song.id == value.id),
-            1
-          );
+          this.playList.update((prevList) => {
+            prevList.splice(
+              prevList.findIndex((song) => song.id == value.id),
+              1
+            );
 
-          if (this.playList.length) {
-            if (this.playingSong?.id == value.id) this.nextSong$.emit();
-          } else this.playingSong = null;
+            return prevList;
+          });
+
+          if (this.playList().length) {
+            if (this.playingSong()?.id == value.id) this.nextSong$.emit();
+          } else this.playingSong.set(null);
         }),
       ]
     );
@@ -49,21 +60,18 @@ export class MuzikService implements OnDestroy {
   toggleShuffle$ = new EventEmitter<void>(false);
   muteSlider$ = new EventEmitter<void>(false);
 
-  // TODO make this property a signal
-  PLAYING_SONG_STATE: 'PLAYING' | 'PAUSED' | 'LOADING' = 'PAUSED';
-  // TODO make this property a signal
-  REPEATE_STATE: 'NO_LOOP' | 'LOOP_ALL' | 'LOOP_ONE' = 'NO_LOOP';
+  PLAYING_SONG_STATE: WritableSignal<'PLAYING' | 'PAUSED' | 'LOADING'> =
+    signal('PAUSED');
+  REPEATE_STATE: WritableSignal<'NO_LOOP' | 'LOOP_ALL' | 'LOOP_ONE'> =
+    signal('NO_LOOP');
 
-  // TODO make this property a signal
-  VOLUBLE = true;
+  VOLUBLE: WritableSignal<boolean> = signal(true);
 
   subs: Subscription[] = [];
 
-  // TODO make this property a signal
-  playingSong?: Song | null;
+  playingSong: WritableSignal<Song | null> = signal(null);
 
-  // TODO make this property a signal
-  playList: Song[] = [];
+  playList: WritableSignal<Song[]> = signal([]);
 
   getHomeRecommendedSongs() {
     return this.http.get<Song[]>(this.BACKEND_URL + '/muziks/home/recommended');

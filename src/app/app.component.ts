@@ -111,10 +111,10 @@ export class AppComponent {
   }
 
   playOrPause(song: Song): void {
-    if (this.muzikService.playingSong?.id == song.id) {
-      if (this.muzikService.PLAYING_SONG_STATE == 'PLAYING')
+    if (this.muzikService.playingSong()?.id == song.id) {
+      if (this.muzikService.PLAYING_SONG_STATE() == 'PLAYING')
         this.muzikService.pauseSong$.emit();
-      else if (this.muzikService.PLAYING_SONG_STATE == 'PAUSED')
+      else if (this.muzikService.PLAYING_SONG_STATE() == 'PAUSED')
         this.muzikService.playSong$.emit();
     } else this.muzikService.setPlayingSong$.emit(song);
   }
