@@ -23,4 +23,6 @@ export class SongCardComponent {
   addSongToList(): void {
     this.muzikService.addSongToList$.emit(this.song());
   }
+
+  toggleFavorite(): void {}
 }

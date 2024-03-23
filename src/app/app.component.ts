@@ -64,52 +64,7 @@ export class AppComponent {
     },
   ];
 
-  favoriteSongs: Song[] = [
-    {
-      id: '1',
-      type: 'ALBUM',
-      parentalAdvisory: true,
-      title: 'manam oon ke maghroor',
-      artist: 'shayea',
-      coArtists: [],
-      album: 'injaneb',
-      image: 'http://localhost:3000/image/shayea_injaneb.webp',
-      file: 'http://localhost:3000/song/shayea_manam-oon-ke-maghroor.mp3',
-    },
-    {
-      id: '2',
-      type: 'SINGLE',
-      parentalAdvisory: true,
-      title: 'miri tu lak',
-      artist: 'reza pishro',
-      coArtists: ['ho3ein'],
-      album: '',
-      image: 'http://localhost:3000/image/reza-pishro_miri-tu-lak.webp',
-      file: 'http://localhost:3000/song/reza-pishro_miri-tu-lak.mp3',
-    },
-    {
-      id: '13',
-      type: 'ALBUM',
-      parentalAdvisory: true,
-      title: 'yelkhi',
-      artist: 'shayea',
-      coArtists: ['zaal'],
-      album: 'amadebash',
-      image: 'http://localhost:3000/image/shayea_amadebash.webp',
-      file: 'http://localhost:3000/song/shayea_yelkhi.mp3',
-    },
-    {
-      id: '14',
-      type: 'ALBUM',
-      parentalAdvisory: true,
-      title: 'vel kon',
-      artist: 'shayea',
-      coArtists: ['amir khalvat'],
-      album: 'amadebash',
-      image: 'http://localhost:3000/image/shayea_amadebash.webp',
-      file: 'http://localhost:3000/song/shayea_vel-kon.mp3',
-    },
-  ];
+  favoriteSongs: Song[] = [];
 
   addSongToList(song: Song): void {
     this.muzikService.addSongToList$.emit(song);

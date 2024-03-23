@@ -6,6 +6,7 @@ export interface Song {
   artist: string;
   coArtists: string[];
   album: string;
+  favorite: boolean;
   image: string;
   file: string;
 }
